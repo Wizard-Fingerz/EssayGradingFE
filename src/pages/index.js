@@ -32,8 +32,11 @@ function LoginPage() {
         if (data.user_type === 'student') {
           // Display the token in the console
           console.log('Token:', data.token);
+          console.log(data)
+          console.log('Question ID:', data.course_id)
           // Save the token to the local storage
           localStorage.setItem('token', data.token);
+          localStorage.setItem('course_id', data.course_id);
           router.push('/exam');
         }
         else {
