@@ -1,0 +1,74 @@
+/* modal.module.css */
+
+.modal-bg {
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Adjust the opacity for the overlay effect */
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-container {
+    min-width: 600px;
+    max-width: 90%; /* Adjust the max-width for better responsiveness */
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .close-btn {
+    width: 40px;
+    height: 40px;
+    background: #eee;
+    border-radius: 50%; /* Make the close button circular */
+    color: #4f0da3;
+    margin: 10px; /* Adjust the margin for better positioning */
+    outline: none;
+    border: none;
+    position: absolute;
+    right: 10px; /* Adjust the position for better placement */
+    top: 10px; /* Adjust the position for better placement */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .modal-heading {
+    font-size: 20px;
+    padding: 20px;
+    margin-top: 10px;
+    color: #4F0DA3;
+  }
+  
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Adjust the alignment for better positioning */
+    padding: 20px;
+    background: #eee;
+    border-radius: 0 0 5px 5px;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .modal-container {
+      min-width: 95%;
+    }
+  }
+  

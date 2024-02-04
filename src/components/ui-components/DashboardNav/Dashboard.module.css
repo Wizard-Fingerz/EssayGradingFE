@@ -1,0 +1,15 @@
+.input {
+    border-radius: 15px;
+    border: 1px solid #1C1B64;
+    /* Fix the color value */
+    padding: 10px;
+    background: none;
+    margin-bottom: 40px;
+    width: 20vw;
+}
+
+.container {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
