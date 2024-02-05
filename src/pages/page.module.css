@@ -124,3 +124,7 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.studentAnswer{
+  height: 40vh;
+}

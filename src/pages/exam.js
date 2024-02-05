@@ -3,11 +3,14 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from "./page.module.css";
 import { API_BASE_URL } from '../constants';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import the styles
 
 function ExaminationPage() {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [timer, setTimer] = useState(7200); // 2 hours in seconds
+    const [studentAnswer, setStudentAnswer] = useState('');
 
     useEffect(() => {
         // Fetch course ID from local storage
@@ -68,6 +71,10 @@ function ExaminationPage() {
         }
     }, [timer]);
 
+    const handleChange = (value) => {
+        setStudentAnswer(value);
+      };
+
 
     return (
         <div className={styles.body}>
@@ -89,7 +96,16 @@ function ExaminationPage() {
                         </div>
                         <div className={styles.timer}>Time Left: {formatTime(timer)}</div>
                     </div>
-                    <div className={styles.question}>{questions[currentQuestionIndex]?.question}</div>
+                    <div className={styles.studentAnswer}>
+                        <ReactQuill
+                            theme="snow" // You can choose different themes, e.g., 'snow', 'bubble', etc.
+                            value={studentAnswer}
+                            onChange={handleChange}
+                            style={{ height: '80%' }} 
+                        />
+                    </div>
+
+
                     <div className={styles.navigation}>
                         <button onClick={() => setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0))}>
                             Previous
