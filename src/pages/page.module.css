@@ -128,3 +128,17 @@
 .studentAnswer{
   height: 40vh;
 }
+
+
+
+.layout {
+  display: flex;
+  position: static;
+  gap: 2rem;
+}
+
+.layout__main-content {
+  flex-grow: 1;
+  margin-left: 100px;
+  color: white;
+}
