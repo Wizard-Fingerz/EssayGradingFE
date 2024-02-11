@@ -1,13 +1,13 @@
 import ExaminerBaseLayout from "@/components/ExaminerBaseLayout";
 
-function ExaminerDashboard() {
+function Exams() {
     return (
-        
         <ExaminerBaseLayout>
 
         </ExaminerBaseLayout>
         
     )
+    
 }
 
-export default ExaminerDashboard;
+export default Exams;
