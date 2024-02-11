@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from "./page.module.css";
 import { API_BASE_URL } from '../constants';
 
-function HomePage() {
+function LoginPage() {
   const router = useRouter();
 
 
@@ -60,11 +60,6 @@ function HomePage() {
     router.push('/examiner-login'); // Replace '/examiner-login' with the desired examiner login page URL
   };
 
-  const handleStudentLogin = () => {
-    // Redirect to the Examiner login page
-    router.push('/student-login'); // Replace '/examiner-login' with the desired examiner login page URL
-  };
-
 
   return (
     <div className={styles.body}>
@@ -79,10 +74,29 @@ function HomePage() {
               height={100}
             />
           </div>
-          <h1>Welcome to Intelligent Pro Grading system</h1>
+          <div className={styles.inputCont}>
+            <label>Reg No/Username/Matric No:</label><br />
+            <input
+              type="text"
+              placeholder="e.g. 125/19/2/1193"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className={styles.input}
+            /><br /></div>
           <div className={styles.inputCont}>
 
-            <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleStudentLogin}>LOGIN</button><br />
+            <label>Password:</label><br />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              className={styles.input}
+              onChange={(e) => setPassword(e.target.value)}
+            /><br /></div>
+
+          <div className={styles.inputCont}>
+
+            <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleLogin}>LOGIN</button><br />
             <button className={styles.button} style={{ backgroundColor: '#000080' }} onClick={handleExaminerLogin}>LOGIN TO EXAMINER PORTAL</button>
           </div>
         </div>
@@ -92,4 +106,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default LoginPage;
