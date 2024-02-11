@@ -80,10 +80,11 @@ function HomePage() {
             />
           </div>
           <h1>Welcome to Intelligent Pro Grading system</h1>
-          <div className={styles.inputCont}>
+          <p>Intelligent Grading Pro is a web based examination grading system system for essay examinations</p>
+          <div className={styles.homeButtons}>
 
-            <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleStudentLogin}>LOGIN</button><br />
-            <button className={styles.button} style={{ backgroundColor: '#000080' }} onClick={handleExaminerLogin}>LOGIN TO EXAMINER PORTAL</button>
+            <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleStudentLogin}>Student Login</button><br />
+            <button className={styles.button} style={{ backgroundColor: '#000080' }} onClick={handleExaminerLogin}>Examiner Login</button>
           </div>
         </div>
       </div>

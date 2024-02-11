@@ -74,11 +74,11 @@
   padding: 10px;
   margin: 10px;
   width: 100%;
-  font-family: Poppins;
+  /* width: 100%;
   font-size: 22px;
   font-weight: 800;
   line-height: 33px;
-  letter-spacing: 0em;
+  letter-spacing: 0em; */
   text-align: center;
   cursor: pointer;
 
@@ -129,6 +129,11 @@
   height: 40vh;
 }
 
+.homeButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 
 .layout {
