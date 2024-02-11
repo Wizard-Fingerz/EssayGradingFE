@@ -79,8 +79,11 @@ function HomePage() {
               height={100}
             />
           </div>
-          <h1>Welcome to Intelligent Pro Grading system</h1>
-          <p>Intelligent Grading Pro is a web based examination grading system system for essay examinations</p>
+          <div className={styles.homeText}>
+            <h1>Welcome to Intelligent Pro Grading system</h1>
+            <p>Intelligent Grading Pro is a web based examination grading system system for essay examinations</p>
+
+          </div>
           <div className={styles.homeButtons}>
 
             <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleStudentLogin}>Student Login</button><br />
