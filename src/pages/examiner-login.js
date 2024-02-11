@@ -35,7 +35,7 @@ function LoginPage() {
                   console.log('Token:', data.token);
                   // Save the token to the local storage
                   localStorage.setItem('token', data.token);
-                  router.push('/dashboard');
+                  router.push('/examiner/index');
                 }
                 else {
                   alert('You don\'t have an examiner account, please contact your admin')
