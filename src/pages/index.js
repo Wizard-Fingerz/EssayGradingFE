@@ -50,6 +50,7 @@ function LoginPage() {
       }
     } catch (error) {
       // Handle network or request error
+      alert('Registration Error: Check internet connection')
       console.error('Network error:', error);
     }
   };
