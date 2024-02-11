@@ -1,0 +1,56 @@
+.body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('/assets/bg_img.svg');
+    background-position: center;
+    background-size: cover;
+  }
+
+  
+.container {
+    color: #666666;
+    width: 50%; /* Set a default width for larger screens */
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+  
+    @media screen and (max-width: 768px) {
+      width: 90%; /* Adjust for medium-sized screens */
+    }
+  
+    @media screen and (max-width: 480px) {
+      width: 95%; /* Adjust for smaller screens */
+      padding: 10px; /* Adjust padding for smaller screens */
+      border-radius: 10px; /* Adjust border radius for smaller screens */
+    }
+  }
+  
+.timer {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .question {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .navigation button {
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .questionHead {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .studentAnswer{
+    height: 40vh;
+  }
+  
+  

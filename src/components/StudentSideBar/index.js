@@ -13,27 +13,27 @@ import NextLink from "next/link";
 const sidebarItems = [
   {
     name: "Courses",
-    href: "/examiner",
+    href: "/student",
     icon: FaBook,
   },
   {
-    name: "Students",
-    href: "/examiner/students",
+    name: "Course Registration",
+    href: "/student/registration",
     icon: FaUserGraduate,
   },
   {
     name: "Exam",
-    href: "/examiner/exam",
+    href: "/student/exam",
     icon: FaClipboard ,
   },
   {
     name: "Result",
-    href: "/examiner/results",
+    href: "/student/results",
     icon: FaPoll ,
   },
 ];
 
-const ExaminerSideBar = () => {
+const StudentSideBar = () => {
   const router = useRouter();
   const { isCollapsed, toggleSidebarcollapse } = useContext(SidebarContext);
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
@@ -99,4 +99,4 @@ const ExaminerSideBar = () => {
   );
 };
 
-export default ExaminerSideBar;
+export default StudentSideBar;
