@@ -55,10 +55,6 @@ function LoginPage() {
     }
   };
 
-  const handleExaminerLogin = () => {
-    // Redirect to the Examiner login page
-    router.push('/examiner-login'); // Replace '/examiner-login' with the desired examiner login page URL
-  };
 
 
   return (
@@ -97,7 +93,6 @@ function LoginPage() {
           <div className={styles.inputCont}>
 
             <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleLogin}>LOGIN</button><br />
-            <button className={styles.button} style={{ backgroundColor: '#000080' }} onClick={handleExaminerLogin}>LOGIN TO EXAMINER PORTAL</button>
           </div>
         </div>
       </div>
