@@ -136,6 +136,9 @@
   justify-content: space-between;
 }
 
+.homeText p{
+  text-align: left;
+}
 
 .layout {
   display: flex;
