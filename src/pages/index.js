@@ -80,10 +80,13 @@ function HomePage() {
             />
           </div>
           <div className={styles.homeText}>
-            <h1>Welcome to Intelligent Pro Grading system</h1>
-            <p>Intelligent Grading Pro is a web based examination grading system system for essay examinations</p>
+            <h1>Welcome to Intelligent Grading Pro system</h1>
+            <br />
+            <p>Intelligent Grading Pro is a cutting-edge web-based examination grading system, utilizing machine learning algorithms to efficiently evaluate theory questions in computer-based exams. Streamlining the grading process, it ensures consistent and objective assessments, providing educators with a user-friendly interface, customizable grading criteria, and valuable performance analytics for enhanced educational outcomes.</p>
+            <br />
+            <p>Intelligent Grading Pro stands at the forefront of educational technology, offering a seamless experience for grading theory questions in computer-based exams. Its adaptive machine learning models ensure precise evaluations, while the system's user-friendly interface and customizable features empower educators with efficient tools for maintaining high standards in assessment and enhancing overall educational outcomes.</p>
 
-          </div>
+          </div><br />
           <div className={styles.homeButtons}>
 
             <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleStudentLogin}>Student Login</button><br />
