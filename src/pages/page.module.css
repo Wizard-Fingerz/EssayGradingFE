@@ -27,6 +27,10 @@
   }
 }
 
+.container h2 {
+  color: black;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -35,8 +39,8 @@
 
 .inputCont {
   text-align: left;
-  margin: 20px;
-  width: 90%;
+  margin: 5px;
+  width: 40%;
 }
 
 .inputCont label {
@@ -72,12 +76,12 @@
   border-radius: 30px;
   border: 1px solid #666666;
   padding: 10px;
-  margin: 10px;
-  width: 100%;
+  margin:0 65px;
+  width: 50%;
+  font-weight: 1900;
   color: white;
   /* width: 100%;
   font-size: 22px;
-  font-weight: 800;
   line-height: 33px;
   letter-spacing: 0em; */
   text-align: center;
@@ -88,6 +92,10 @@
   }
 }
 
+.boldedText{
+  color: #000080;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -95,9 +103,9 @@
 }
 
 .imageContainer {
-  width: 100%;
-  max-width: 400px; /* Set your desired maximum width */
-  margin-bottom: 20px; /* Adjust margin as needed */
+  width: 70%;
+  /* max-width: 400px; Set your desired maximum width */
+  /* margin-bottom: 20px; Adjust margin as needed */
 
   @media screen and (max-width: 480px) {
     max-width: 300px; /* Adjust maximum width for smaller screens */

@@ -37,7 +37,7 @@ function LoginPage() {
           // Save the token to the local storage
           localStorage.setItem('token', data.token);
           localStorage.setItem('course_id', data.course_id);
-          router.push('/exam');
+          router.push('/student');
         }
         else {
           alert('You don\'t have a student account, please contact your examiner')
@@ -64,27 +64,30 @@ function LoginPage() {
         <div className={styles.form}>
           <div className={styles.imageContainer}>
             <Image
-              src="/assets/logo.svg"
+              src="/assets/logo.png"
               alt="My Logo"
               width={400}
               height={100}
             />
           </div>
+          <h2>Student Login</h2> <br/>
+
+          <p>Kindly Login with any of<br /> <b className={styles.boldedText}>Registration Number or Matric number</b></p>
           <div className={styles.inputCont}>
-            <label>Reg No/Username/Matric No:</label><br />
+            {/* <label>Username:</label><br /> */}
             <input
               type="text"
-              placeholder="e.g. 125/19/2/1193"
+              placeholder="User Name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className={styles.input}
             /><br /></div>
           <div className={styles.inputCont}>
 
-            <label>Password:</label><br />
+            {/* <label>Password:</label><br /> */}
             <input
               type="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={password}
               className={styles.input}
               onChange={(e) => setPassword(e.target.value)}

@@ -101,7 +101,8 @@ body {
 }
 
 body {
-  background-color: #000080;
+  /* background-color: #000080; */
+  background-color: #7a7a7a;
 }
 
 .layout {
@@ -225,7 +226,7 @@ a {
   display: inline-block;
   font-size: 1rem;
   text-decoration: none;
-  color: #7E7E7E;
+  color: #505050;
   padding: 0.8rem 1rem;
   display: flex;
   background-color: var(--color-sidebar-item);
@@ -256,3 +257,75 @@ a {
 [data-collapse="true"] .sidebar__logo-name {
   display: none;
 }
+
+
+.table-container {
+  background: #fff;
+  box-sizing: border-box;
+  padding: 20px 0;
+  border-radius: 10px;
+  border: 1px solid rgb(211, 211, 211);
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(138, 43, 226, 0.1);
+
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow: scroll;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  text-align: left;
+}
+
+.table th {
+  font-size: 12px;
+}
+
+.table tr {
+  border-top: 1px solid rgb(211, 211, 211);
+}
+
+.table td,
+.table th {
+  padding: 10px;
+}
+
+.table tr td:nth-of-type(1) {
+  font-weight: bold;
+}
+
+.table tr td:not(:nth-of-type(1)) {
+  color: gray;
+}
+
+.table tr td span {
+  display: inline-block;
+
+}
+
+.table tr td span:nth-of-type(1)>svg {
+  font-size: 20px;
+  margin-right: 5px;
+  position: relative;
+  top: 5px;
+  color: black
+}
+
+.table tr th span:nth-of-type(2) {
+  position: relative;
+  top: 2px;
+}
+

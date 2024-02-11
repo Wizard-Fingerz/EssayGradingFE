@@ -31,21 +31,21 @@ function LoginPage() {
             if (response.ok) {
                 const data = await response.json();
                 if (data.user_type === 'examiner') {
-                  // Display the token in the console
-                  console.log('Token:', data.token);
-                  // Save the token to the local storage
-                  localStorage.setItem('token', data.token);
-                  router.push('/examiner');
+                    // Display the token in the console
+                    console.log('Token:', data.token);
+                    // Save the token to the local storage
+                    localStorage.setItem('token', data.token);
+                    router.push('/examiner');
                 }
                 else {
-                  alert('You don\'t have an examiner account, please contact your admin')
+                    alert('You don\'t have an examiner account, please contact your admin')
                 }
-        
-              } else {
+
+            } else {
                 // Handle login failure
                 console.error('Login failed');
                 alert('Incorrect Login details.')
-              }
+            }
         } catch (error) {
             // Handle network or request error
             alert('Registration Error, please try again')
@@ -60,17 +60,22 @@ function LoginPage() {
             <div className={styles.container}>
 
                 <div className={styles.form}>
-                    <Image
-                        src="/assets/logo.svg"
-                        alt="My Logo"
-                        width={400}  // Set your desired width
-                        height={100} // Set your desired height
-                    />
+                    <div className={styles.imageContainer}>
+                        <Image
+                            src="/assets/logo.png"
+                            alt="My Logo"
+                            // sizes={20}
+                            width={400}  // Set your desired width
+                            height={100} // Set your desired height
+                        />
+                    </div>
+                    <h2>Examiner Login</h2>
                     <div className={styles.inputCont}>
                         <label>Username:</label><br />
                         <input
                             type="text"
-                            placeholder="Enter your username"
+                            placeholder="User Name"
+                            //   placeholder="Enter your username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             className={styles.input}
@@ -80,15 +85,17 @@ function LoginPage() {
                         <label>Password:</label><br />
                         <input
                             type="password"
-                            placeholder="Enter your password"
+                            placeholder="Password"
+                            //   placeholder="Enter your password"
                             value={password}
                             className={styles.input}
                             onChange={(e) => setPassword(e.target.value)}
                         /><br /></div>
 
-                    <div className={styles.inputCont}>
 
+                    <div className={styles.inputCont}>
                         <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleLogin}>LOGIN</button><br />
+
                     </div>
                 </div>
             </div>

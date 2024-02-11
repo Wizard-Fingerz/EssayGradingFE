@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import styles from "./page.module.css";
-import { API_BASE_URL } from '../constants';
+import styles from "./exam.module.css";
+import { API_BASE_URL } from '../../constants';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import the styles
 
