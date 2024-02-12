@@ -125,6 +125,7 @@ const Table = ({
                             style={{
                                 borderRadius: '15px',
                                 height: '40px',
+                                background: 'none',
                                 fontSize: '16px',
                                 padding: '20px',
                                 border: '0.5px solid grey',
