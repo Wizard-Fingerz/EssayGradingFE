@@ -140,9 +140,6 @@ function ExaminerDashboard() {
         }
     };
 
-
-
-
     useEffect(() => {
         const fetchData = async () => {
 
@@ -249,7 +246,7 @@ function ExaminerDashboard() {
             />
 
             <Modal
-                isOpen={openAddCourseModal}
+                isOpen={addCourseModal}
                 heading={"Add Course"}
                 onClose={closeAddCourseModal}
             >

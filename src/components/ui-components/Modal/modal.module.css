@@ -17,6 +17,7 @@
     min-width: 600px;
     max-width: 90%; /* Adjust the max-width for better responsiveness */
     background: #fff;
+    color: black;
     padding: 20px;
     border-radius: 5px;
   }
