@@ -159,3 +159,19 @@
   margin-left: 100px;
   color: white;
 }
+
+.left {
+  width: 100px;
+}
+
+.rowedForm{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.question {
+  overflow: auto;
+  height: 60vh;
+}
