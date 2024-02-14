@@ -46,6 +46,7 @@ function Exams() {
     const [tableData, setTableData] = useState([]);
 
     const [addExamModal, setAddExamModal] = useState(false);
+    const [bulkUpload, setBulkUploadModal] = useState(false);
     const [downloadExamModal, setDownloadExamModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [viewModalData, setViewModalData] = useState(null);
@@ -73,7 +74,7 @@ function Exams() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/Exams/', {
+                const response = await fetch('http://127.0.0.1:8000/exam/exams-with-questions/', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -90,12 +91,17 @@ function Exams() {
         fetchData();
     }, []);
 
+    
+    const openBulkUploadModal = () => {
+        setBulkUploadModal(true);
+    };
+
     const openAddExamModal = () => {
         setAddExamModal(true);
     };
 
     const closeAddExamModal = () => {
-        setAddCourseModal(false);
+        setAddExamModal(false);
         window.location.reload();
     };
 
@@ -116,7 +122,17 @@ function Exams() {
                     />
 
                 )}
+
                 headingRightItem2={() => (
+                    <ActionButton
+                        onClick={openBulkUploadModal}
+                        label="Bulk Upload"
+                        // Icon={FaCloudDownloadAlt}
+                        style={{ margin: '0 19px', }}
+                    />
+
+                )}
+                headingRightItem3={() => (
                     <ActionButton
                         onClick={openDownloadExamModal}
                         label="Download All"

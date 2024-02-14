@@ -4,15 +4,66 @@ import { API_BASE_URL } from '@/constants';
 
 function CreateExam() {
     const [examData, setExamData] = useState({
-        duration: '',  // Add duration field
-        course: '',    // Add course field
+        duration: '',
+        instruction: '',
+        course: '',
         questions: [
-            { comprehension: '', question: '', examiner_answer: '', question_score: '' },
+            { serial: 1, comprehension: '', question: '', examiner_answer: '', question_score: '' },
         ],
     });
 
+
     const [courses, setCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const createExam = async () => {
+        const token = localStorage.getItem('token');
+        setIsLoading(true);
+
+        try {
+            const formattedExamData = {
+                duration: examData.duration,
+                instruction: examData.instruction,
+                course: examData.course,
+                questions: examData.questions.map(question => ({
+                    comprehension: question.comprehension,
+                    question: question.question,
+                    examiner_answer: question.examiner_answer,
+                    question_score: question.question_score,
+                })),
+            };
+
+            const response = await fetch(`${API_BASE_URL}/exam/exam-create/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                },
+                body: JSON.stringify(formattedExamData),
+            });
+
+            if (response.ok) {
+                alert('Examination Created Successfully');
+                // Reset the form after successful submission
+                setExamData({
+                    duration: '',
+                    course: '',
+                    instruction: '',
+                    questions: [{ serial: 1, comprehension: '', question: '', examiner_answer: '', question_score: '' }],
+                });
+            } else {
+                console.error('Exam creation failed');
+                const data = await response.json();
+                alert(data.detail || 'Exam creation failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+            alert('Network error. Please check your connection and try again.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
 
 
     useEffect(() => {
@@ -52,14 +103,16 @@ function CreateExam() {
     };
 
     const addQuestion = () => {
+        const newSerial = examData.questions.length + 1;
         setExamData({
             ...examData,
             questions: [
                 ...examData.questions,
-                { comprehension: '', question: '', examiner_answer: '', question_score: '' },
+                { serial: newSerial, comprehension: '', question: '', examiner_answer: '', question_score: '' },
             ],
         });
     };
+
 
     const removeQuestion = (index) => {
         const updatedQuestions = [...examData.questions];
@@ -67,39 +120,15 @@ function CreateExam() {
         setExamData({ ...examData, questions: updatedQuestions });
     };
 
-    const handleSubmission = async () => {
-        const token = localStorage.getItem('token');
-        setIsLoading(true);
 
-        try {
-            const response = await fetch(`${API_BASE_URL}/exam/create-exam/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${token}`,
-                },
-                body: JSON.stringify(examData),
-            });
-
-            if (response.ok) {
-                alert('Examination Created Successfully');
-                // Reset the form after successful submission
-                setExamData({
-                    duration: '',
-                    course: '',
-                    questions: [{ comprehension: '', question: '', examiner_answer: '', question_score: '' }],
-                });
-            } else {
-                console.error('Exam creation failed');
-                alert('Exam creation failed. Please try again.');
-            }
-        } catch (error) {
-            console.error('Network error:', error);
-            alert('Network error. Please check your connection and try again.');
-        } finally {
-            setIsLoading(false);
-        }
+    const closeAddExamModal = () => {
+        setAddExamModal(false);
+        window.location.reload();
     };
+
+
+
+
 
 
     return (
@@ -113,6 +142,7 @@ function CreateExam() {
                                 <label>Duration:</label>
                                 <input
                                     type="text"
+                                    placeholder = "HH:MM:SS"
                                     value={examData.duration}
                                     onChange={(e) => setExamData({ ...examData, duration: e.target.value })}
                                     className={styles.input}
@@ -134,12 +164,25 @@ function CreateExam() {
                                     ))}
                                 </select>
                             </div>
+                            <div className={styles.inputCont}>
+                                <label>Instruction:</label>
+                                <input
+                                    type="text"
+                                    value={examData.instruction}
+                                    onChange={(e) => setExamData({ ...examData, instruction: e.target.value })}
+                                    className={styles.input}
+                                />
+                            </div>
+
+
 
                         </div>
                         <div className={styles.right}>
                             <div className={styles.question}>
                                 {examData.questions.map((question, index) => (
+
                                     <div key={index} className={styles.inputCont}>
+                                        <label>Question Number: {question.serial}</label><br />
                                         <label>Comprehension:</label>
                                         <input
                                             type="text"
@@ -173,7 +216,10 @@ function CreateExam() {
                                         />
 
                                         {examData.questions.length > 1 && (
-                                            <button type="button" onClick={() => removeQuestion(index)} className={styles.button}>
+                                            <button type="button" onClick={() => removeQuestion(index)} className={styles.button}
+
+                                                style={{ backgroundColor: 'red' }}
+                                            >
                                                 Remove Question
                                             </button>
                                         )}
@@ -193,7 +239,7 @@ function CreateExam() {
                             type="button"
                             className={styles.button}
                             style={{ backgroundColor: '#FFA500' }}
-                            onClick={handleSubmission}
+                            onClick={createExam}
                             disabled={isLoading}
                         >
                             {isLoading ? 'Submitting...' : 'Submit'}
