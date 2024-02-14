@@ -9,6 +9,7 @@ import { FaSearch } from 'react-icons/fa';
 const Table = ({
     headingRightItem1 = () => { },
     headingRightItem2 = () => { },
+    headingRightItem3 = () => { },
     heading,
     data,
 }) => {
@@ -139,6 +140,7 @@ const Table = ({
                     </div>
                     {headingRightItem1()}
                     {headingRightItem2()}
+                    {headingRightItem3()}
                 </div>
                 <div className={styles["table-wrapper"]} style={{ maxHeight: '400px', overflowY: 'auto' }}>
                     <table className={styles["table"]}>

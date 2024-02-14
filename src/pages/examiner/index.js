@@ -46,8 +46,9 @@ const table_column_heading = [
 
 function ExaminerDashboard() {
     const [tableData, setTableData] = useState([]);
-
+    
     const [addCourseModal, setAddCourseModal] = useState(false);
+    const [bulkUpload, setBulkUploadModal] = useState(false);
     const [downloadCourseModal, setDownloadCourseModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [viewModalData, setViewModalData] = useState(null);
@@ -173,6 +174,11 @@ function ExaminerDashboard() {
         setAddCourseModal(true);
     };
 
+    const openBulkCourseUploadModal = () => {
+        setBulkUploadModal(true);
+    };
+    
+
 
     const openDownloadCourseModal = () => {
         setDownloadCourseModal(true);
@@ -193,6 +199,16 @@ function ExaminerDashboard() {
 
                 )}
                 headingRightItem2={() => (
+                    <ActionButton
+                        onClick={openBulkCourseUploadModal}
+                        label="Bulk Upload"
+                        // Icon={FaCloudDownloadAlt}
+                        style={{ margin: '0 19px', }}
+                    />
+
+                )}
+                
+                headingRightItem3={() => (
                     <ActionButton
                         onClick={openDownloadCourseModal}
                         label="Download All"

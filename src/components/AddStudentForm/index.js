@@ -20,6 +20,7 @@ function AddStudent() {
         formData.append('first_name', first_name);
         formData.append('last_name', last_name);
         formData.append('matric_number', matric_num);
+        formData.append('username', matric_num);
         formData.append('password', password);
 
 

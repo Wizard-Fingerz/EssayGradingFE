@@ -46,6 +46,7 @@ function Students() {
     const [tableData, setTableData] = useState([]);
 
     const [addStudentModal, setAddStudentModal] = useState(false);
+    const [bulkUpload, setBulkUploadModal] = useState(false);
     const [downloadStudentModal, setDownloadStudentModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [viewModalData, setViewModalData] = useState(null);
@@ -181,6 +182,11 @@ function Students() {
         window.location.reload();
     };
 
+    
+    const openBulkUploadModal = () => {
+        setBulkUploadModal(true);
+    };
+
     return (
         <ExaminerBaseLayout>
 
@@ -195,6 +201,16 @@ function Students() {
 
                 )}
                 headingRightItem2={() => (
+                    <ActionButton
+                        onClick={openBulkUploadModal}
+                        label="Bulk Upload"
+                        // Icon={FaCloudDownloadAlt}
+                        style={{ margin: '0 19px', }}
+                    />
+
+                )}
+                
+                headingRightItem3={() => (
                     <ActionButton
                         onClick={openDownloadStudentModal}
                         label="Download All"
