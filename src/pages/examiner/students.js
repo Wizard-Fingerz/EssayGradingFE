@@ -4,6 +4,12 @@ import Modal from "@/components/ui-components/Modal";
 import Table from "@/components/ui-components/Table";
 import AddStudentForm from "@/components/AddStudentForm";
 import { useState, useEffect } from "react";
+import {
+    FaEye,
+    FaTrash,
+    FaEdit,
+} from "react-icons/fa";
+
 
 const table_column_heading = [
     {
@@ -144,14 +150,14 @@ function Students() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/students/', {
+                const response = await fetch('http://127.0.0.1:8000/students/', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
                     },
                 });
                 const data = await response.json();
-                console.log(data);
+                console.log('users',data);
                 setTableData(data);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -174,7 +180,6 @@ function Students() {
         setAddStudentModal(false);
         window.location.reload();
     };
-
 
     return (
         <ExaminerBaseLayout>
@@ -202,7 +207,7 @@ function Students() {
                 data={tableData.map((item) => ({
                     first_name: item.first_name,
                     last_name: item.last_name,
-                    matric_no: item.matric_no,
+                    matric_no: item.username,
                     "view-btn": {
                         component: () => (
                             <ActionButton

@@ -16,10 +16,10 @@ function AddStudent() {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('course_id', course);
+        // formData.append('course_id', course);
         formData.append('first_name', first_name);
         formData.append('last_name', last_name);
-        formData.append('matric_no', matric_num);
+        formData.append('matric_number', matric_num);
         formData.append('password', password);
 
 
@@ -97,23 +97,7 @@ function AddStudent() {
 
             <form className={styles.form} onSubmit={handleFormSubmit}>
                 <div className={styles.inputCont}>
-                    <label>Course:</label>
-                    <select
-                        value={course}
-                        onChange={(e) => setCourse(e.target.value)}
-                        className={styles.input}
-                    >
-                        <option value="" disabled>Select a course</option>
-                        {courses.map((course) => (
-                            <option key={course.id} value={course.id}>
-                                {course.title}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className={styles.inputCont}>
-                    <label>Frist Name:</label>
+                    <label>First Name:</label>
                     <input
                         type="text"
                         value={first_name}
