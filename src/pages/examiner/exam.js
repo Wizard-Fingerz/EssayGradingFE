@@ -1,6 +1,8 @@
 import ExaminerBaseLayout from "@/components/ExaminerBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
+import CreateExamForm from "@/components/CreateExamForm";
 import Table from "@/components/ui-components/Table";
+import Modal from "@/components/ui-components/Modal";
 import { useState, useEffect } from "react";
 
 
@@ -92,6 +94,10 @@ function Exams() {
         setAddExamModal(true);
     };
 
+    const closeAddExamModal = () => {
+        setAddCourseModal(false);
+        window.location.reload();
+    };
 
     const openDownloadExamModal = () => {
         setDownloadExamModal(true);
@@ -161,6 +167,15 @@ function Exams() {
                 }))}
 
             />
+
+
+            <Modal
+                isOpen={addExamModal}
+                heading={"Create Exam"}
+                onClose={closeAddExamModal}
+            >
+                <CreateExamForm />
+            </Modal>
 
         </ExaminerBaseLayout>
 

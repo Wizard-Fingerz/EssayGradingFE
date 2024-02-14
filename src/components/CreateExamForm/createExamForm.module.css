@@ -1,0 +1,213 @@
+.body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('/assets/bg_img.svg');
+    background-position: center;
+    background-size: cover;
+}
+
+.container {
+    color: #666666;
+    /* width: 50%; */
+    /* Set a default width for larger screens */
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        /* Adjust for medium-sized screens */
+    }
+
+    @media screen and (max-width: 480px) {
+        width: 95%;
+        /* Adjust for smaller screens */
+        padding: 10px;
+        /* Adjust padding for smaller screens */
+        border-radius: 10px;
+        /* Adjust border radius for smaller screens */
+    }
+}
+
+.container h2 {
+    color: black;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputCont {
+    text-align: left;
+    margin: 5px;
+    width: 40%;
+}
+
+.inputCont label {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+
+
+    @media screen and (max-width: 480px) {
+        font-size: 16px;
+        /* Adjust label font size for smaller screens */
+    }
+}
+
+.input {
+    border-radius: 10px;
+    border: 1px solid #666666;
+    background: none;
+    /* Background is set to transparent */
+    color: #666666;
+    /* Text color is set to greyish */
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 30vw;
+
+
+    @media screen and (max-width: 480px) {
+        font-size: 14px;
+        /* Adjust input font size for smaller screens */
+    }
+}
+
+.button {
+    border-radius: 30px;
+    border: 1px solid #666666;
+    padding: 10px;
+    margin: 0 65px;
+    width: 50%;
+    font-weight: 1900;
+    color: white;
+    /* width: 100%;
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 0em; */
+    text-align: center;
+    cursor: pointer;
+
+    @media screen and (max-width: 480px) {
+        font-size: 16px;
+        /* Adjust button font size for smaller screens */
+    }
+}
+
+.boldedText {
+    color: #000080;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageContainer {
+    width: 70%;
+    /* max-width: 400px; Set your desired maximum width */
+    /* margin-bottom: 20px; Adjust margin as needed */
+
+    @media screen and (max-width: 480px) {
+        max-width: 300px;
+        /* Adjust maximum width for smaller screens */
+        margin-bottom: 10px;
+        /* Adjust margin for smaller screens */
+    }
+}
+
+.timer {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.question {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.navigation button {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.questionHead {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.studentAnswer {
+    height: 40vh;
+}
+
+.homeButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.homeText p {
+    text-align: left;
+}
+
+.layout {
+    display: flex;
+    position: static;
+    gap: 2rem;
+}
+
+.layout__main-content {
+    flex-grow: 1;
+    margin-left: 100px;
+    color: white;
+}
+
+.left {
+    margin: 20px;
+    padding: 20px;
+    
+
+    @media screen and (max-width: 480px) {
+
+        margin: 0px;
+        padding: 0px;
+
+    }
+}
+
+.right {
+    border-left: 1px solid #1C1B64;
+    margin: 20px;
+    padding: 20px;
+  
+    @media screen and (max-width: 480px) {
+      border-left: none;
+  
+      margin: 0px;
+      padding: 0px;
+  
+    }
+  }
+  
+
+.rowedForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.question {
+    overflow: auto;
+    height: 60vh;
+}
