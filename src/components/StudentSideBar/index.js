@@ -17,11 +17,6 @@ const sidebarItems = [
     icon: FaBook,
   },
   {
-    name: "Course Registration",
-    href: "/student/registration",
-    icon: FaUserGraduate,
-  },
-  {
     name: "Exam",
     href: "/student/exam",
     icon: FaClipboard ,
