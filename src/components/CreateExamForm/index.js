@@ -173,7 +173,7 @@ function CreateExam() {
                                         />
 
                                         {examData.questions.length > 1 && (
-                                            <button type="button" onClick={() => removeQuestion(index)}>
+                                            <button type="button" onClick={() => removeQuestion(index)} className={styles.button}>
                                                 Remove Question
                                             </button>
                                         )}
@@ -182,7 +182,7 @@ function CreateExam() {
                             </div>
 
 
-                            <button type="button" onClick={addQuestion}>
+                            <button type="button" onClick={addQuestion} className={styles.button}>
                                 Add Question
                             </button>
                         </div>
