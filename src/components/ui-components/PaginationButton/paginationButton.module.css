@@ -1,6 +1,6 @@
 .btn{
     display: flex;
-    background-color: #4F0DA3;
+    background-color: #000080;
     color: #fff;
     box-sizing: border-box;
     padding: 10px;
@@ -12,8 +12,8 @@
 }
 .btn.inverse{
     background-color: transparent;
-    color: #4F0DA3;
-    border: 1px solid #4F0DA3;
+    color: #000080;
+    border: 1px solid #000080;
 }
 .btn > svg{
     font-size: 16px;
@@ -21,7 +21,7 @@
 }
 
 .btn.active {
-    background-color: #4F0DA3; /* Change this color to the desired active color */
+    background-color: #000080; /* Change this color to the desired active color */
     color: #fff;
   }
   

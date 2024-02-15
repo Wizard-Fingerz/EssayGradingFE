@@ -1,0 +1,37 @@
+.courses{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    border-radius: 30px;
+    border: 1px solid #666666;
+    padding: 10px;
+    margin: 0 65px;
+    width: 50%;
+    font-weight: 1900;
+    color: white;
+    /* width: 100%;
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 0em; */
+    text-align: center;
+    cursor: pointer;
+
+    @media screen and (max-width: 480px) {
+        font-size: 16px;
+        /* Adjust button font size for smaller screens */
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputCont {
+    text-align: left;
+    margin: 5px;
+    width: 80%;
+}

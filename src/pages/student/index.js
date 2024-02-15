@@ -2,6 +2,8 @@ import StudentBaseLayout from "@/components/StudentBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
 import Table from "@/components/ui-components/Table";
 import { useState, useEffect } from "react";
+import Modal from "@/components/ui-components/Modal";
+import CourseRegistrationForm from "@/components/CourseRegistration";
 import {
     FaCloudDownloadAlt,
     FaRegFilePdf,
@@ -43,7 +45,36 @@ function StudentDashboard() {
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteModalData, setDeleteModalData] = useState(null);
 
-    
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                console.error('Token not found in local storage');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/exam/student-courses/', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                    },
+                });
+                const data = await response.json();
+                console.log(data);
+                setTableData(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
 
     const closeDownloadCourseModal = () => {
@@ -51,13 +82,17 @@ function StudentDashboard() {
         window.location.reload();
     };
 
-    
+
     const openDownloadCourseModal = () => {
         setDownloadCourseModal(true);
     };
 
     const openCourseRegistrationModal = () => {
         setCourseRegistrationModal(true);
+    };
+    const closeCourseRegistrationModal = () => {
+        setCourseRegistrationModal(false);
+        window.location.reload();
     };
 
 
@@ -66,18 +101,29 @@ function StudentDashboard() {
         <StudentBaseLayout>
 
             <Table
-            headingRightItem1={() => (
-                <ActionButton
-                    onClick={openCourseRegistrationModal}
-                    label="Course Registration"
-                    // Icon={FaCloudDownloadAlt}
-                    style={{ margin: '0 19px', }}
-                />
+                headingRightItem1={() => (
+                    <ActionButton
+                        onClick={openCourseRegistrationModal}
+                        label="Course Registration"
+                        // Icon={FaCloudDownloadAlt}
+                        style={{ margin: '0 19px', }}
+                    />
 
-            )}
+                )}
+                headingRightItem2={() => (
+
+                    <ActionButton
+                        onClick={openDownloadCourseModal}
+                        label="Print Exam Slip"
+                        // Icon={FaCloudDownloadAlt}
+                        style={{ margin: '0 19px', }}
+                    />
+
+                )}
+                
 
                 headingRightItem3={() => (
-                    
+
                     <ActionButton
                         onClick={openDownloadCourseModal}
                         label="Download All"
@@ -89,12 +135,21 @@ function StudentDashboard() {
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
                     title: item.title,
-                    course_code: item.course_code,
+                    course_code: item.code,
                     description: item.description,
-                    
+
                 }))}
 
             />
+
+            <Modal
+                isOpen={courseRegistrationModal}
+                heading={"Register Course"}
+                onClose={closeCourseRegistrationModal}
+            >
+                <CourseRegistrationForm />
+            </Modal>
+
 
         </StudentBaseLayout>
 

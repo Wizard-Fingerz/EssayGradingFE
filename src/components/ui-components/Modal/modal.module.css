@@ -27,7 +27,7 @@
     height: 40px;
     background: #eee;
     border-radius: 50%; /* Make the close button circular */
-    color: #4f0da3;
+    color: #000080;
     margin: 10px; /* Adjust the margin for better positioning */
     outline: none;
     border: none;
@@ -46,7 +46,7 @@
     font-size: 20px;
     padding: 20px;
     margin-top: 10px;
-    color: #4F0DA3;
+    color: #000080;
   }
   
   .modal-footer {
