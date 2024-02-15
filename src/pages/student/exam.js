@@ -102,7 +102,7 @@ function ExamPage() {
                 )}
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
-                    course: item.course,
+                    course: item.course_name,
                     examiner: item.examiner,
                     number_of_questions: item.questions.length,
                     duration: item.duration,
