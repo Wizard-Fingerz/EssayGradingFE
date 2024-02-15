@@ -86,7 +86,7 @@ function ExamPage() {
 
     const handleClick = (examId) => {
         // Navigate to the exam page with the examId as a URL parameter
-        router.push(`/exam/${examId}`);
+        router.push(`/student/examination/${examId}`);
     };
 
     return (
@@ -114,7 +114,7 @@ function ExamPage() {
                                 label="Start Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleClick(item.id)} // Pass the examId to handleClick
+                                onClick={() => handleClick(item.course)} // Pass the examId to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),

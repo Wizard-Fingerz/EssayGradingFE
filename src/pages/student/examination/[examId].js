@@ -2,54 +2,56 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from "./exam.module.css";
-import { API_BASE_URL } from '../../constants';
+import { API_BASE_URL } from '../../../constants';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import the styles
 
 function ExaminationPage() {
+    const router = useRouter();
+    const { course_id } = router.query;
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [timer, setTimer] = useState(7200); // 2 hours in seconds
     const [studentAnswer, setStudentAnswer] = useState('');
 
     useEffect(() => {
-        // Fetch course ID from local storage
-        const course_id = localStorage.getItem('course_id');
-
-        // Fetch questions from the backend API using the course ID
-        const fetchQuestions = async () => {
-            const token = localStorage.getItem('token');
-
-            if (!token) {
-                console.error('Token not found in local storage');
-                return;
-            }
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/exam/course-questions/${course_id}/`, {
-                    method: 'GET', headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Token ${token}`, // Include the token for authorization
-
-                    },
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setQuestions(data);
-                    console.log(data)
-                } else {
-                    console.error('Failed to fetch questions');
-                }
-            } catch (error) {
-                console.error('Error fetching questions:', error);
-            }
-        };
-
-        // Check if course_id is available before making the request
         if (course_id) {
-            fetchQuestions();
-        } else {
-            console.error('Course ID not available.');
+
+            const fetchQuestions = async () => {
+                const token = localStorage.getItem('token');
+
+                if (!token) {
+                    console.error('Token not found in local storage');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/exam/course-questions/${course_id}/`, {
+                        method: 'GET', headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Token ${token}`, // Include the token for authorization
+
+                        },
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        setQuestions(data);
+                        console.log(data)
+                    } else {
+                        console.error('Failed to fetch questions');
+                    }
+                } catch (error) {
+                    console.error('Error fetching questions:', error);
+                }
+            };
+
+            // Check if course_id is available before making the request
+            if (course_id) {
+                fetchQuestions();
+            } else {
+                console.error('Course ID not available.');
+            }
+
         }
     }, []); // Run once on component mount
 
@@ -73,7 +75,7 @@ function ExaminationPage() {
 
     const handleChange = (value) => {
         setStudentAnswer(value);
-      };
+    };
 
 
     return (
@@ -101,7 +103,7 @@ function ExaminationPage() {
                             theme="snow" // You can choose different themes, e.g., 'snow', 'bubble', etc.
                             value={studentAnswer}
                             onChange={handleChange}
-                            style={{ height: '80%' }} 
+                            style={{ height: '80%' }}
                         />
                     </div>
 
