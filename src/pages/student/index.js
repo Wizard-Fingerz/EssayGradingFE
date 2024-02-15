@@ -1,6 +1,15 @@
 import StudentBaseLayout from "@/components/StudentBaseLayout";
+import ActionButton from "@/components/ui-components/ActionButton";
 import Table from "@/components/ui-components/Table";
 import { useState, useEffect } from "react";
+import {
+    FaCloudDownloadAlt,
+    FaRegFilePdf,
+    FaLongArrowAltDown,
+    FaEye,
+    FaTrash,
+    FaEdit,
+} from "react-icons/fa";
 
 
 const table_column_heading = [
@@ -18,42 +27,59 @@ const table_column_heading = [
         key: "description",
         heading: "Description",
     },
-    {
-        key: "view-btn",
-        heading: "",
-    },
 
-    {
-        key: "edit-btn",
-        heading: "",
-    },
-
-    {
-        key: "delete-btn",
-        heading: "",
-    },
 ];
 
 
 function StudentDashboard() {
     const [tableData, setTableData] = useState([]);
+    const [courseRegistrationModal, setCourseRegistrationModal] = useState(false);
+    const [bulkUpload, setBulkUploadModal] = useState(false);
+    const [downloadCourseModal, setDownloadCourseModal] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
+    const [viewModalData, setViewModalData] = useState(null);
+    const [editModal, setEditModal] = useState(false);
+    const [editModalData, setEditModalData] = useState(null);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [deleteModalData, setDeleteModalData] = useState(null);
+
+    
+
+
+    const closeDownloadCourseModal = () => {
+        setDownloadCourseModal(false);
+        window.location.reload();
+    };
+
+    
+    const openDownloadCourseModal = () => {
+        setDownloadCourseModal(true);
+    };
+
+    const openCourseRegistrationModal = () => {
+        setCourseRegistrationModal(true);
+    };
+
+
     return (
 
         <StudentBaseLayout>
 
             <Table
-                headingRightItem1={() => (
-                    <ActionButton
-                        onClick={openAddMarketerModal}
-                        label="Add Marketer"
-                        // Icon={FaCloudDownloadAlt}
-                        style={{ margin: '0 19px', }}
-                    />
+            headingRightItem1={() => (
+                <ActionButton
+                    onClick={openCourseRegistrationModal}
+                    label="Course Registration"
+                    // Icon={FaCloudDownloadAlt}
+                    style={{ margin: '0 19px', }}
+                />
 
-                )}
-                headingRightItem2={() => (
+            )}
+
+                headingRightItem3={() => (
+                    
                     <ActionButton
-                        onClick={openDownloadMarketerModal}
+                        onClick={openDownloadCourseModal}
                         label="Download All"
                         // Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
@@ -65,39 +91,7 @@ function StudentDashboard() {
                     title: item.title,
                     course_code: item.course_code,
                     description: item.description,
-                    "view-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="View"
-                                Icon={FaEye}
-                                inverse={true}
-                                onClick={openViewModal}
-                                style={{ color: 'blue', borderColor: 'blue' }}
-                            />
-                        ),
-                    },
-                    "edit-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="Edit"
-                                Icon={FaEdit}
-                                inverse={true}
-                                onClick={openEditModal}
-                                style={{ color: 'green', borderColor: 'green' }}
-                            />
-                        ),
-                    },
-                    "delete-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="Delete"
-                                Icon={FaTrash}
-                                inverse={true}
-                                onClick={openDeleteModal}
-                                style={{ color: 'red', borderColor: 'red' }}
-                            />
-                        ),
-                    },
+                    
                 }))}
 
             />

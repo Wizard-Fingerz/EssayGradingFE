@@ -1,5 +1,6 @@
 import StudentBaseLayout from "@/components/StudentBaseLayout";
 
+
 function Results() {
     return (
         <StudentBaseLayout>
