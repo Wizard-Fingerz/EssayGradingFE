@@ -6,6 +6,7 @@ function CreateExam() {
     const [examData, setExamData] = useState({
         duration: '',
         instruction: '',
+        total_mark: '',
         course: '',
         questions: [
             { serial: 1, comprehension: '', question: '', examiner_answer: '', question_score: '' },
@@ -24,6 +25,7 @@ function CreateExam() {
             const formattedExamData = {
                 duration: examData.duration,
                 instruction: examData.instruction,
+                total_mark: examData.total_mark,
                 course: examData.course,
                 questions: examData.questions.map(question => ({
                     comprehension: question.comprehension,
@@ -49,6 +51,7 @@ function CreateExam() {
                     duration: '',
                     course: '',
                     instruction: '',
+                    total_mark: '',
                     questions: [{ serial: 1, comprehension: '', question: '', examiner_answer: '', question_score: '' }],
                 });
             } else {
@@ -142,7 +145,7 @@ function CreateExam() {
                                 <label>Duration:</label>
                                 <input
                                     type="text"
-                                    placeholder = "HH:MM:SS"
+                                    placeholder="HH:MM:SS"
                                     value={examData.duration}
                                     onChange={(e) => setExamData({ ...examData, duration: e.target.value })}
                                     className={styles.input}
@@ -170,6 +173,16 @@ function CreateExam() {
                                     type="text"
                                     value={examData.instruction}
                                     onChange={(e) => setExamData({ ...examData, instruction: e.target.value })}
+                                    className={styles.input}
+                                />
+                            </div>
+
+                            <div className={styles.inputCont}>
+                                <label>Total Mark:</label>
+                                <input
+                                    type="number"
+                                    value={examData.total_mark}
+                                    onChange={(e) => setExamData({ ...examData, total_mark: e.target.value })}
                                     className={styles.input}
                                 />
                             </div>
