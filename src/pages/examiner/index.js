@@ -13,6 +13,7 @@ import {
     FaEdit,
 } from "react-icons/fa";
 
+
 const table_column_heading = [
     {
         key: "title",

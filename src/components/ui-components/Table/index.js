@@ -12,6 +12,7 @@ const Table = ({
     headingRightItem3 = () => { },
     heading,
     data,
+    categoryKey
 }) => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [searchQuery, setSearchQuery] = useState("");
@@ -22,7 +23,7 @@ const Table = ({
     // Extract unique categories from data
     // Extract unique categories from data only when data is not empty
     const uniqueCategories = data.length > 0
-        ? [...new Set(data.map((item) => item.property_type || "Others"))]
+        ? [...new Set(data.map((item) => item[categoryKey] || "Others"))]
         : [];
 
 
@@ -52,13 +53,12 @@ const Table = ({
                 )
             )
             : data.filter((item) =>
-                item.property_type && item.property_type === selectedCategory &&
+                item[categoryKey] && item[categoryKey] === selectedCategory &&
                 Object.values(item).some(
                     (value) =>
                         typeof value === "string" && value.toLowerCase().includes(searchQuery.toLowerCase())
                 )
             );
-
 
     // Calculate total pages and update filteredData based on current page and itemsPerPage
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
