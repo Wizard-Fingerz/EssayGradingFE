@@ -4,8 +4,7 @@ import CreateExamForm from "@/components/CreateExamForm";
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
 import { useState, useEffect,} from "react";
-
-import { useHistory } from "react-router-dom";
+import { useRouter } from 'next/router';
 import {
     FaCloudDownloadAlt,
     FaRegFilePdf,
@@ -52,7 +51,7 @@ function ExamPage() {
     const [tableData, setTableData] = useState([]);
     const [downloadModal, setDownloadModal] = useState(false);
 
-    const history = useHistory();
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -87,7 +86,7 @@ function ExamPage() {
 
     const handleClick = (examId) => {
         // Navigate to the exam page with the examId as a URL parameter
-        history.push(`/exam/${examId}`);
+        router.push(`/exam/${examId}`);
     };
 
     return (
@@ -103,12 +102,12 @@ function ExamPage() {
                 )}
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
-                    course: item.title,
-                    examiner: item.instruction,
-                    number_of_questions: item.description,
-                    duration: item.description,
-                    instruction: item.description,
-                    total_mark: item.description,
+                    course: item.course,
+                    examiner: item.examiner,
+                    number_of_questions: item.questions.length,
+                    duration: item.duration,
+                    instruction: item.instruction,
+                    total_mark: item.total_mark,
                     "start-btn": {
                         component: () => (
                             <ActionButton
