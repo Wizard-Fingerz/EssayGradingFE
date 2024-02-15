@@ -3,7 +3,7 @@ import ActionButton from "@/components/ui-components/ActionButton";
 import CreateExamForm from "@/components/CreateExamForm";
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
-import { useState, useEffect,} from "react";
+import { useState, useEffect, } from "react";
 import { useRouter } from 'next/router';
 import {
     FaCloudDownloadAlt,
@@ -84,10 +84,11 @@ function ExamPage() {
         setDownloadModal(true);
     };
 
-    const handleClick = (examId) => {
-        // Navigate to the exam page with the examId as a URL parameter
-        router.push(`/student/examination/${examId}`);
+    const handleClick = (examId, duration, instruction, totalMark) => {
+        // Navigate to the exam page with the examId and other details as URL parameters
+        router.push(`/student/examination/${examId}?duration=${duration}&instruction=${instruction}&totalMark=${totalMark}`);
     };
+
 
     return (
         <StudentBaseLayout>
@@ -114,7 +115,7 @@ function ExamPage() {
                                 label="Start Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleClick(item.course)} // Pass the examId to handleClick
+                                onClick={() => handleClick(item.course, item.duration, item.instruction, item.total_mark)} // Pass the necessary details to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),

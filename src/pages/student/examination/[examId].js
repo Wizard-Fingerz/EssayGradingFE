@@ -2,20 +2,21 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from "./exam.module.css";
-import { API_BASE_URL } from '../../../constants';
+import { API_BASE_URL } from '@/constants';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import the styles
 
 function ExaminationPage() {
     const router = useRouter();
-    const { course_id } = router.query;
+    const { examId, duration, instruction } = router.query;
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [timer, setTimer] = useState(7200); // 2 hours in seconds
+    const [timer, setTimer] = useState(parseDurationToSeconds(duration));
     const [studentAnswer, setStudentAnswer] = useState('');
 
     useEffect(() => {
-        if (course_id) {
+        
+            console.log(examId)
 
             const fetchQuestions = async () => {
                 const token = localStorage.getItem('token');
@@ -26,33 +27,34 @@ function ExaminationPage() {
                 }
 
                 try {
-                    const response = await fetch(`${API_BASE_URL}/exam/course-questions/${course_id}/`, {
-                        method: 'GET', headers: {
+                    const response = await fetch(`${API_BASE_URL}/exam/course-questions/${examId}/`, {
+                        method: 'GET',
+                        headers: {
                             'Content-Type': 'application/json',
                             'Authorization': `Token ${token}`, // Include the token for authorization
-
                         },
                     });
                     if (response.ok) {
                         const data = await response.json();
                         setQuestions(data);
-                        console.log(data)
+                        console.log(data);
                     } else {
-                        console.error('Failed to fetch questions');
+                        console.error('Failed to fetch questions:', response.statusText);
                     }
                 } catch (error) {
                     console.error('Error fetching questions:', error);
                 }
+
             };
 
             // Check if course_id is available before making the request
-            if (course_id) {
+            if (examId) {
                 fetchQuestions();
             } else {
                 console.error('Course ID not available.');
             }
 
-        }
+        
     }, []); // Run once on component mount
 
 
@@ -92,6 +94,7 @@ function ExaminationPage() {
                 <div className={styles.exam}>
                     <div className={styles.questionHead}>
                         <div className={styles.question}>
+                            {instruction}<br />
                             {`Question ${currentQuestionIndex + 1}/${questions.length}`}
                             <br />
                             {questions[currentQuestionIndex]?.question}
@@ -122,10 +125,19 @@ function ExaminationPage() {
 
 }
 
+function parseDurationToSeconds(duration) {
+    if (!duration) return 0;
+
+    const [hours, minutes, seconds] = duration.split(':').map(Number);
+
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
 function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 }
 
 export default ExaminationPage;
