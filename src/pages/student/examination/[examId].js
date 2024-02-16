@@ -68,12 +68,13 @@ function ExaminationPage() {
         }
 
         const answerData = {
-            question_id: currentQuestion.id,
+            pk: currentQuestion.id,
             student_answer: studentAnswer,
         };
 
         try {
-            const response = await fetch(`${API_BASE_URL}/exam/submit-answer/${examId}/`, {
+            // const response = await fetch(`${API_BASE_URL}/exam/submit-answer/${examId}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/exam/submit-answer/${examId}/`, {
                 method: 'PUT', // Use PATCH or PUT based on your API
                 headers: {
                     'Content-Type': 'application/json',
