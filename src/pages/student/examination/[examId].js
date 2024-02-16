@@ -15,47 +15,82 @@ function ExaminationPage() {
     const [studentAnswer, setStudentAnswer] = useState('');
 
     useEffect(() => {
-        
-            console.log(examId)
 
-            const fetchQuestions = async () => {
-                const token = localStorage.getItem('token');
+        console.log(examId)
 
-                if (!token) {
-                    console.error('Token not found in local storage');
-                    return;
-                }
+        const fetchQuestions = async () => {
+            const token = localStorage.getItem('token');
 
-                try {
-                    const response = await fetch(`${API_BASE_URL}/exam/course-questions/${examId}/`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Token ${token}`, // Include the token for authorization
-                        },
-                    });
-                    if (response.ok) {
-                        const data = await response.json();
-                        setQuestions(data);
-                        console.log(data);
-                    } else {
-                        console.error('Failed to fetch questions:', response.statusText);
-                    }
-                } catch (error) {
-                    console.error('Error fetching questions:', error);
-                }
-
-            };
-
-            // Check if course_id is available before making the request
-            if (examId) {
-                fetchQuestions();
-            } else {
-                console.error('Course ID not available.');
+            if (!token) {
+                console.error('Token not found in local storage');
+                return;
             }
 
-        
+            try {
+                const response = await fetch(`${API_BASE_URL}/exam/get-course-questions/?${examId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Token ${token}`, // Include the token for authorization
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setQuestions(data);
+                    console.log(data);
+                } else {
+                    console.error('Failed to fetch questions:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+            }
+
+        };
+
+        // Check if course_id is available before making the request
+        if (examId) {
+            fetchQuestions();
+        } else {
+            console.error('Course ID not available.');
+        }
+
+
     }, []); // Run once on component mount
+
+
+    const handleSubmitAnswer = async () => {
+        const token = localStorage.getItem('token');
+        const currentQuestion = questions[currentQuestionIndex];
+
+        if (!currentQuestion) {
+            console.error('No question found for submission');
+            return;
+        }
+
+        const answerData = {
+            question_id: currentQuestion.id,
+            student_answer: studentAnswer,
+        };
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/submit-answer/${examId}/`, {
+                method: 'PUT', // Use PATCH or PUT based on your API
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                },
+                body: JSON.stringify(answerData),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                // Handle successful response (if needed)
+            } else {
+                console.error('Failed to submit answer:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error submitting answer:', error);
+        }
+    };
 
 
     // Update timer every second
@@ -96,8 +131,9 @@ function ExaminationPage() {
                         <div className={styles.question}>
                             <h3>Subject: {courseName}</h3><br />
                             <h3>Instruction: {instruction}</h3><br />
-                            
-                            {`Question ${currentQuestionIndex + 1}/${questions.length}`}
+                            <h4>
+                                {`Question ${currentQuestionIndex + 1}/${questions.length}`}
+                            </h4>
                             <br />
                             {questions[currentQuestionIndex]?.question}
                         </div>
@@ -120,6 +156,7 @@ function ExaminationPage() {
                         <button onClick={() => setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1))}>
                             Next
                         </button>
+                        <button onClick={handleSubmitAnswer}>Submit Answer</button>
                     </div>
                 </div></div>
         </div>
