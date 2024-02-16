@@ -84,9 +84,9 @@ function ExamPage() {
         setDownloadModal(true);
     };
 
-    const handleClick = (examId, duration, instruction, totalMark) => {
+    const handleClick = (examId, duration, courseName, instruction, totalMark) => {
         // Navigate to the exam page with the examId and other details as URL parameters
-        router.push(`/student/examination/${examId}?duration=${duration}&instruction=${instruction}&totalMark=${totalMark}`);
+        router.push(`/student/examination/${examId}?duration=${duration}&courseName=${courseName}&instruction=${instruction}&totalMark=${totalMark}`);
     };
 
 
@@ -115,7 +115,7 @@ function ExamPage() {
                                 label="Start Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleClick(item.course, item.duration, item.instruction, item.total_mark)} // Pass the necessary details to handleClick
+                                onClick={() => handleClick(item.course, item.duration,item.course_name, item.instruction, item.total_mark)} // Pass the necessary details to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),

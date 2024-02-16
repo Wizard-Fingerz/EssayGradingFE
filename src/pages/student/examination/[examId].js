@@ -8,7 +8,7 @@ import 'react-quill/dist/quill.snow.css'; // Import the styles
 
 function ExaminationPage() {
     const router = useRouter();
-    const { examId, duration, instruction } = router.query;
+    const { examId, duration, courseName, instruction } = router.query;
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [timer, setTimer] = useState(parseDurationToSeconds(duration));
@@ -94,7 +94,9 @@ function ExaminationPage() {
                 <div className={styles.exam}>
                     <div className={styles.questionHead}>
                         <div className={styles.question}>
-                            {instruction}<br />
+                            <h3>Subject: {courseName}</h3><br />
+                            <h3>Instruction: {instruction}</h3><br />
+                            
                             {`Question ${currentQuestionIndex + 1}/${questions.length}`}
                             <br />
                             {questions[currentQuestionIndex]?.question}
