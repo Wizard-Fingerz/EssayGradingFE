@@ -83,6 +83,7 @@
 
 .button {
     border-radius: 30px;
+    background-color: #666666;
     border: 1px solid #666666;
     padding: 10px;
     margin: 0 65px;
