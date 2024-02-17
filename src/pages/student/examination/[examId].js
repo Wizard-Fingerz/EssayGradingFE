@@ -11,88 +11,43 @@ function ExaminationPage() {
     const { examId, duration, courseName, instruction } = router.query;
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [studentAnswers, setStudentAnswers] = useState({});
     const [timer, setTimer] = useState(parseDurationToSeconds(duration));
     const [studentAnswer, setStudentAnswer] = useState('');
 
     useEffect(() => {
-
-        console.log(examId)
-
-        const fetchQuestions = async () => {
-            const token = localStorage.getItem('token');
-
-            if (!token) {
-                console.error('Token not found in local storage');
-                return;
-            }
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/exam/get-course-questions/?${examId}/`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Token ${token}`, // Include the token for authorization
-                    },
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setQuestions(data);
-                    console.log(data);
-                } else {
-                    console.error('Failed to fetch questions:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error fetching questions:', error);
-            }
-
-        };
-
-        // Check if course_id is available before making the request
-        if (examId) {
-            fetchQuestions();
+        const storedQuestions = localStorage.getItem('questions');
+        if (storedQuestions) {
+            setQuestions(JSON.parse(storedQuestions));
         } else {
-            console.error('Course ID not available.');
+            console.error('Questions not found in local storage.');
         }
+    }, []);
 
-
-    }, []); // Run once on component mount
-
-
+    // Inside the handleSubmitAnswer function, send the entire studentAnswers object to the backend
     const handleSubmitAnswer = async () => {
         const token = localStorage.getItem('token');
-        const currentQuestion = questions[currentQuestionIndex];
-
-        if (!currentQuestion) {
-            console.error('No question found for submission');
-            return;
-        }
-
-        const answerData = {
-            pk: currentQuestion.id,
-            student_answer: studentAnswer,
-        };
 
         try {
-            // const response = await fetch(`${API_BASE_URL}/exam/submit-answer/${examId}/`, {
             const response = await fetch(`http://127.0.0.1:8000/exam/submit-answer/${examId}/`, {
-                method: 'PUT', // Use PATCH or PUT based on your API
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${token}`,
                 },
-                body: JSON.stringify(answerData),
+                body: JSON.stringify(studentAnswers),
             });
             if (response.ok) {
                 const data = await response.json();
-                // Handle successful response (if needed)
+                console.log('Answers submitted successfully:', data);
+                // You can handle the response here if needed
             } else {
-                console.error('Failed to submit answer:', response.statusText);
+                console.error('Failed to submit answers:', response.statusText);
             }
         } catch (error) {
-            console.error('Error submitting answer:', error);
+            console.error('Error submitting answers:', error);
         }
     };
-
 
     // Update timer every second
     useEffect(() => {
@@ -111,7 +66,17 @@ function ExaminationPage() {
         }
     }, [timer]);
 
-    const handleChange = (value) => {
+    useEffect(() => {
+        // Reset the studentAnswer when the currentQuestionIndex changes
+        setStudentAnswer('');
+    }, [currentQuestionIndex]);
+
+    // Update the handleQuillChange function to update the studentAnswers object with the current question ID and the answer
+    const handleQuillChange = (value) => {
+        setStudentAnswers(prevAnswers => ({
+            ...prevAnswers,
+            [questions[currentQuestionIndex]?.id]: value,
+        }));
         setStudentAnswer(value);
     };
 
@@ -144,7 +109,7 @@ function ExaminationPage() {
                         <ReactQuill
                             theme="snow" // You can choose different themes, e.g., 'snow', 'bubble', etc.
                             value={studentAnswer}
-                            onChange={handleChange}
+                            onChange={handleQuillChange}
                             style={{ height: '80%' }}
                         />
                     </div>

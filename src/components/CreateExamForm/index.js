@@ -9,7 +9,7 @@ function CreateExam() {
         total_mark: '',
         course: '',
         questions: [
-            { serial: 1, comprehension: '', question: '', examiner_answer: '', question_score: '' },
+            { serial: 1, comprehension: '', question: '', course: '', examiner_answer: '', question_score: '' },
         ],
     });
 
@@ -29,6 +29,7 @@ function CreateExam() {
                 course: examData.course,
                 questions: examData.questions.map(question => ({
                     comprehension: question.comprehension,
+                    course: question.course,
                     question: question.question,
                     examiner_answer: question.examiner_answer,
                     question_score: question.question_score,
@@ -52,11 +53,12 @@ function CreateExam() {
                     course: '',
                     instruction: '',
                     total_mark: '',
-                    questions: [{ serial: 1, comprehension: '', question: '', examiner_answer: '', question_score: '' }],
+                    questions: [{ serial: 1, comprehension: '', question: '',course: '', examiner_answer: '', question_score: '' }],
                 });
             } else {
                 console.error('Exam creation failed');
                 const data = await response.json();
+                console.log(data)
                 alert(data.detail || 'Exam creation failed. Please try again.');
             }
         } catch (error) {
@@ -122,14 +124,6 @@ function CreateExam() {
         updatedQuestions.splice(index, 1);
         setExamData({ ...examData, questions: updatedQuestions });
     };
-
-
-    const closeAddExamModal = () => {
-        setAddExamModal(false);
-        window.location.reload();
-    };
-
-
 
 
 
