@@ -194,10 +194,10 @@ function Exams() {
                 categoryKey='course_code'
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
-                    course_code: item.course_code,
-                    course_title: item.course_name,
+                    course_code: item.questions.course_code,
+                    course_title: item.questions.course_title,
                     comprehension: item.comprehension,
-                    question: item.question,
+                    question: item.questions.question,
                     examiner_answer: item.examiner_answer,
                     score: item.question_score,
                     "view-btn": {

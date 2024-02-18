@@ -24,9 +24,19 @@ function ExaminationPage() {
         }
     }, []);
 
-    // Inside the handleSubmitAnswer function, send the entire studentAnswers object to the backend
+    // Inside the handleSubmitAnswer function, strip HTML tags from the studentAnswer before sending it to the backend
+    // Inside the handleSubmitAnswer function, strip HTML tags from all student answers before sending them to the backend
     const handleSubmitAnswer = async () => {
         const token = localStorage.getItem('token');
+
+        // Strip HTML tags from all student answers
+        const strippedAnswers = {};
+        for (const questionId in studentAnswers) {
+            if (Object.hasOwnProperty.call(studentAnswers, questionId)) {
+                const strippedAnswer = stripHtml(studentAnswers[questionId]);
+                strippedAnswers[questionId] = strippedAnswer;
+            }
+        }
 
         try {
             const response = await fetch(`http://127.0.0.1:8000/exam/submit-answer/${examId}/`, {
@@ -35,7 +45,7 @@ function ExaminationPage() {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${token}`,
                 },
-                body: JSON.stringify(studentAnswers),
+                body: JSON.stringify(strippedAnswers),
             });
             if (response.ok) {
                 const data = await response.json();
@@ -47,6 +57,12 @@ function ExaminationPage() {
         } catch (error) {
             console.error('Error submitting answers:', error);
         }
+    };
+
+    // Function to strip HTML tags from the content
+    const stripHtml = (html) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || '';
     };
 
     // Update timer every second
