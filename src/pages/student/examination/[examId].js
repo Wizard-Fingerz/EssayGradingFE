@@ -78,10 +78,12 @@ function ExaminationPage() {
     useEffect(() => {
         if (timer === 0) {
             // Handle timer reaching zero (e.g., submit the exam)
-            console.log('Time is up!');
+            console.log('Time is up! Automatically submitting...');
+            handleSubmitAnswer();
         }
     }, [timer]);
 
+    
     useEffect(() => {
         // Reset the studentAnswer when the currentQuestionIndex changes
         setStudentAnswer('');
@@ -95,6 +97,22 @@ function ExaminationPage() {
         }));
         setStudentAnswer(value);
     };
+
+    useEffect(() => {
+        // Load saved student answers from state
+        const savedAnswers = studentAnswers[questions[currentQuestionIndex]?.id];
+        setStudentAnswer(savedAnswers || ''); // Set the answer to the saved answer or an empty string
+    }, [currentQuestionIndex, studentAnswers]);
+
+    // Update the Previous and Next button click handlers to update the Quill box with the saved answer for the target question
+    const goToPreviousQuestion = () => {
+        setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    };
+
+    const goToNextQuestion = () => {
+        setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1));
+    };
+
 
 
     return (
@@ -132,10 +150,10 @@ function ExaminationPage() {
 
 
                     <div className={styles.navigation}>
-                        <button onClick={() => setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0))}>
+                        <button onClick={goToPreviousQuestion}>
                             Previous
                         </button>
-                        <button onClick={() => setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1))}>
+                        <button onClick={goToNextQuestion}>
                             Next
                         </button>
                         <button onClick={handleSubmitAnswer}>Submit Answer</button>
