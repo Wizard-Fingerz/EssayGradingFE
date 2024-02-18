@@ -29,6 +29,13 @@ function ExaminationPage() {
     const handleSubmitAnswer = async () => {
         const token = localStorage.getItem('token');
 
+        // Check if the user has already submitted answers
+        const hasSubmitted = localStorage.getItem('hasSubmitted');
+        if (hasSubmitted) {
+            console.warn('Answers already submitted. You can only submit once.');
+            return;
+        }
+
         // Strip HTML tags from all student answers
         const strippedAnswers = {};
         for (const questionId in studentAnswers) {
@@ -47,12 +54,22 @@ function ExaminationPage() {
                 },
                 body: JSON.stringify(strippedAnswers),
             });
+
             if (response.ok) {
                 const data = await response.json();
-                console.log('Answers submitted successfully:', data);
+                alert('Exam submitted successfully:', data);
+
+                // Set a flag indicating that the user has submitted answers
+                localStorage.setItem('hasSubmitted', 'true');
+
+                // Logout user and remove token from local storage
+                localStorage.removeItem('token');
+                router.push('/success-page'); // Navigate to the success page
+
                 // You can handle the response here if needed
             } else {
                 console.error('Failed to submit answers:', response.statusText);
+                alert('Failed to submit Exam:', response.statusText);
             }
         } catch (error) {
             console.error('Error submitting answers:', error);
@@ -79,11 +96,12 @@ function ExaminationPage() {
         if (timer === 0) {
             // Handle timer reaching zero (e.g., submit the exam)
             console.log('Time is up! Automatically submitting...');
+            alert('Time is up! Automatically submitting...');
             handleSubmitAnswer();
         }
     }, [timer]);
 
-    
+
     useEffect(() => {
         // Reset the studentAnswer when the currentQuestionIndex changes
         setStudentAnswer('');
