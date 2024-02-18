@@ -37,7 +37,7 @@ function Results() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/student-courses/', {
+                const response = await fetch('http://127.0.0.1:8000/exam/exam-results/', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -72,7 +72,7 @@ function Results() {
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
                     course: item.course,
-                    score: item.score,
+                    score: item.exam_score,
                     grade: item.grade,
 
                 }))}

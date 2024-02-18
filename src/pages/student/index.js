@@ -2,6 +2,7 @@ import StudentBaseLayout from "@/components/StudentBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
 import Table from "@/components/ui-components/Table";
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 import Modal from "@/components/ui-components/Modal";
 import CourseRegistrationForm from "@/components/CourseRegistration";
 import {
@@ -45,6 +46,15 @@ function StudentDashboard() {
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteModalData, setDeleteModalData] = useState(null);
 
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/'); // Redirect to the login page if the token is not present
+            alert('Redirected to login...')
+        }
+    }, []);
 
 
     useEffect(() => {

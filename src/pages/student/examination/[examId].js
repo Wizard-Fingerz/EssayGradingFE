@@ -16,6 +16,14 @@ function ExaminationPage() {
     const [studentAnswer, setStudentAnswer] = useState('');
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/'); // Redirect to the login page if the token is not present
+            alert('Redirected to login...')
+        }
+    }, []);
+
+    useEffect(() => {
         const storedQuestions = localStorage.getItem('questions');
         if (storedQuestions) {
             setQuestions(JSON.parse(storedQuestions));

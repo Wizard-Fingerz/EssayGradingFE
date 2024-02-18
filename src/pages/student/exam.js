@@ -53,6 +53,17 @@ function ExamPage() {
 
     const router = useRouter();
 
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/'); // Redirect to the login page if the token is not present
+            alert('Redirected to login...')
+        }
+    }, []);
+
+
+
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem('token');
@@ -90,12 +101,12 @@ function ExamPage() {
     // };
 
     const handleClick = (examId, duration, courseName, instruction, totalMark, questions) => {
-        
+
         localStorage.setItem('questions', JSON.stringify(questions));
         // Navigate to the exam page with the examId, other details, and questions as URL parameters
         router.push(`/student/examination/${examId}?duration=${duration}&courseName=${courseName}&instruction=${instruction}&totalMark=${totalMark}`);
     };
-    
+
 
 
     return (
@@ -123,7 +134,7 @@ function ExamPage() {
                                 label="Start Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleClick(item.course, item.duration,item.course_name, item.instruction, item.total_mark, item.questions)} // Pass the necessary details to handleClick
+                                onClick={() => handleClick(item.course, item.duration, item.course_name, item.instruction, item.total_mark, item.questions)} // Pass the necessary details to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),

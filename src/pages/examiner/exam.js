@@ -3,6 +3,7 @@ import ActionButton from "@/components/ui-components/ActionButton";
 import CreateExamForm from "@/components/CreateExamForm";
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
+import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
 import {
     FaCloudDownloadAlt,
@@ -71,6 +72,17 @@ function Exams() {
     const [editModalData, setEditModalData] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteModalData, setDeleteModalData] = useState(null);
+
+    
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/'); // Redirect to the login page if the token is not present
+            alert('Redirected to login...')
+        }
+    }, []);
 
     const openViewModal = (examId) => {
         const selectedExam = tableData.find(item => item.id === examId);

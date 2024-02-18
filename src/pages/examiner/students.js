@@ -1,5 +1,6 @@
 import ExaminerBaseLayout from "@/components/ExaminerBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
+import { useRouter } from 'next/router';
 import Modal from "@/components/ui-components/Modal";
 import Table from "@/components/ui-components/Table";
 import AddStudentForm from "@/components/AddStudentForm";
@@ -54,6 +55,17 @@ function Students() {
     const [editModalData, setEditModalData] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteModalData, setDeleteModalData] = useState(null);
+
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/'); // Redirect to the login page if the token is not present
+            alert('Redirected to login...')
+        }
+    }, []);
+
 
     const openViewModal = (studentId) => {
         const selectedStudent = tableData.find(item => item.id === studentId);

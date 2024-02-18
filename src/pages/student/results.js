@@ -1,6 +1,7 @@
 import StudentBaseLayout from "@/components/StudentBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
 
@@ -25,6 +26,16 @@ function Results() {
     const [tableData, setTableData] = useState([]);
     const [downloadModal, setDownloadModal] = useState(false);
 
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/'); // Redirect to the login page if the token is not present
+            alert('Redirected to login...')
+        }
+    }, []);
+
     useEffect(() => {
         const fetchData = async () => {
 
@@ -37,7 +48,7 @@ function Results() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/student-courses/', {
+                const response = await fetch('http://127.0.0.1:8000/exam/exam-results/', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -61,7 +72,7 @@ function Results() {
 
     return (
         <StudentBaseLayout>
-
+            {console.log("tableData:", tableData)}
             <Table
                 headingRightItem1={() => (
                     <ActionButton
@@ -74,17 +85,13 @@ function Results() {
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
                     course: item.course,
-                    score: item.score,
+                    score: item.exam_score,
                     grade: item.grade,
-
                 }))}
-
             />
-
-
         </StudentBaseLayout>
-
     )
+
 
 }
 
