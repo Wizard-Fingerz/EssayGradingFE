@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Modal from "@/components/ui-components/Modal";
 import Table from "@/components/ui-components/Table";
 import AddStudentForm from "@/components/AddStudentForm";
+import StudentBulkUpload from "@/components/StudentBulkUpload";
 import { useState, useEffect } from "react";
 import {
     FaEye,
@@ -26,10 +27,6 @@ const table_column_heading = [
         key: "matric_no",
         heading: "Matric Number",
     },
-    {
-        key: "view-btn",
-        heading: "",
-    },
 
     {
         key: "edit-btn",
@@ -47,10 +44,8 @@ function Students() {
     const [tableData, setTableData] = useState([]);
 
     const [addStudentModal, setAddStudentModal] = useState(false);
-    const [bulkUpload, setBulkUploadModal] = useState(false);
+    const [bulkUploadModal, setBulkUploadModal] = useState(false);
     const [downloadStudentModal, setDownloadStudentModal] = useState(false);
-    const [viewModal, setViewModal] = useState(false);
-    const [viewModalData, setViewModalData] = useState(null);
     const [editModal, setEditModal] = useState(false);
     const [editModalData, setEditModalData] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
@@ -65,19 +60,6 @@ function Students() {
             alert('Redirected to login...')
         }
     }, []);
-
-
-    const openViewModal = (studentId) => {
-        const selectedStudent = tableData.find(item => item.id === studentId);
-        setViewModalData(selectedStudent);
-        setViewModal(true);
-    };
-
-
-    const closeViewModal = () => {
-        setViewModal(false);
-        window.location.reload();
-    };
 
 
     const openEditModal = (courseId) => {
@@ -106,17 +88,6 @@ function Students() {
         window.location.reload();
     };
 
-
-    const closeAddCourseModal = () => {
-        setAddCourseModal(false);
-        window.location.reload();
-    };
-
-
-    const closeDownloadCourseModal = () => {
-        setDownloadCourseModal(false);
-        window.location.reload();
-    };
 
 
     const deleteCourse = async (courseId) => {
@@ -170,7 +141,7 @@ function Students() {
                     },
                 });
                 const data = await response.json();
-                console.log('users',data);
+                console.log('users', data);
                 setTableData(data);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -194,10 +165,16 @@ function Students() {
         window.location.reload();
     };
 
-    
+
     const openBulkUploadModal = () => {
         setBulkUploadModal(true);
     };
+
+    const closeBulkUploadModal = () => {
+        setBulkUploadModal(false);
+        window.location.reload();
+    };
+
 
     return (
         <ExaminerBaseLayout>
@@ -221,7 +198,7 @@ function Students() {
                     />
 
                 )}
-                
+
                 headingRightItem3={() => (
                     <ActionButton
                         onClick={openDownloadStudentModal}
@@ -236,17 +213,7 @@ function Students() {
                     first_name: item.first_name,
                     last_name: item.last_name,
                     matric_no: item.username,
-                    "view-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="View"
-                                Icon={FaEye}
-                                inverse={true}
-                                onClick={openViewModal}
-                                style={{ color: 'blue', borderColor: 'blue' }}
-                            />
-                        ),
-                    },
+
                     "edit-btn": {
                         component: () => (
                             <ActionButton
@@ -281,6 +248,19 @@ function Students() {
             >
                 <AddStudentForm />
             </Modal>
+
+            <Modal
+                isOpen={bulkUploadModal}
+                heading={"Bulk Upload Students"}
+                onClose={closeBulkUploadModal}
+            >
+                {/* Your bulk upload form component will go here */}
+
+                <StudentBulkUpload />
+            </Modal>
+
+
+
 
         </ExaminerBaseLayout>
 
