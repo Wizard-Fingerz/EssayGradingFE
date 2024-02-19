@@ -3,6 +3,7 @@ import ActionButton from "@/components/ui-components/ActionButton";
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
 import AddCourseForm from "@/components/AddCourseForm";
+import CourseBulkUpload from "@/components/CourseBulkUpload";
 import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
 import {
@@ -29,10 +30,7 @@ const table_column_heading = [
         key: "description",
         heading: "Description",
     },
-    {
-        key: "view-btn",
-        heading: "",
-    },
+    
 
     {
         key: "edit-btn",
@@ -50,10 +48,8 @@ function ExaminerDashboard() {
     const [tableData, setTableData] = useState([]);
     
     const [addCourseModal, setAddCourseModal] = useState(false);
-    const [bulkUpload, setBulkUploadModal] = useState(false);
+    const [bulkUploadModal, setBulkUploadModal] = useState(false);
     const [downloadCourseModal, setDownloadCourseModal] = useState(false);
-    const [viewModal, setViewModal] = useState(false);
-    const [viewModalData, setViewModalData] = useState(null);
     const [editModal, setEditModal] = useState(false);
     const [editModalData, setEditModalData] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
@@ -69,18 +65,7 @@ function ExaminerDashboard() {
         }
     }, []);
 
-    const openViewModal = (courseId) => {
-        const selectedCourse = tableData.find(item => item.id === courseId);
-        setViewModalData(selectedCourse);
-        setViewModal(true);
-    };
 
-
-
-    const closeViewModal = () => {
-        setViewModal(false);
-        window.location.reload();
-    };
 
 
     const openEditModal = (courseId) => {
@@ -196,6 +181,11 @@ function ExaminerDashboard() {
         setDownloadCourseModal(true);
     };
 
+    const closeBulkUploadModal = () => {
+        setBulkUploadModal(false);
+        window.location.reload();
+    };
+
 
     return (
 
@@ -279,6 +269,17 @@ function ExaminerDashboard() {
                 onClose={closeAddCourseModal}
             >
                 <AddCourseForm />
+            </Modal>
+
+            
+            <Modal
+                isOpen={bulkUploadModal}
+                heading={"Bulk Upload Courses"}
+                onClose={closeBulkUploadModal}
+            >
+                {/* Your bulk upload form component will go here */}
+
+                <CourseBulkUpload />
             </Modal>
 
 

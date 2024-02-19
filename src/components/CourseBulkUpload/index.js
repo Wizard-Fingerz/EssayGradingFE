@@ -3,7 +3,8 @@ import styles from "@/pages/page.module.css";
 import { API_BASE_URL } from '@/constants';
 
 
-function StudentBulkUpload() {
+function CourseBulkUpload() {
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploadStatus, setUploadStatus] = useState(null);
 
@@ -24,7 +25,7 @@ function StudentBulkUpload() {
         formData.append("file", selectedFile);
     
         try {
-            const response = await fetch(`${API_BASE_URL}/upload/students/`, {
+            const response = await fetch(`${API_BASE_URL}/exam/upload/courses/`, {
                 method: "POST",
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -47,11 +48,12 @@ function StudentBulkUpload() {
     };
     
 
-    return (
+
+    return(
         <div>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <p>Make sure the following fields are in your file: </p>
-                <b>'first_name', 'last_name', 'matric_number', 'password'</b>
+                <b>'title', 'code', 'description'</b>
                 <div className={styles.inputCont}>
                     <label htmlFor="file">Select CSV File:</label>
                     <input type="file" id="file" accept=".csv" onChange={handleFileChange} className={styles.input} />
@@ -62,10 +64,11 @@ function StudentBulkUpload() {
                 </div>
                 
             </form>
+            
             {uploadStatus === "success" && <p>Upload successful!</p>}
             {uploadStatus === "error" && <p>Error uploading file.</p>}
         </div>
     );
 }
 
-export default StudentBulkUpload;
+export default CourseBulkUpload;
