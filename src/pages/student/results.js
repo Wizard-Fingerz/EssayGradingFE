@@ -1,18 +1,23 @@
 import StudentBaseLayout from "@/components/StudentBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from '@/constants';
 import { useRouter } from 'next/router';
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
 
 const table_column_heading = [
     {
-        key: "course",
-        heading: "Course",
+        key: "course_code",
+        heading: "Course Code",
+    },
+    {
+        key: "course_title",
+        heading: "Course Title",
     },
     {
         key: "score",
-        heading: "Score",
+        heading: "Percentage Score",
         // icon: FaLongArrowAltDown,
     },
     {
@@ -48,7 +53,7 @@ function Results() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/exam-results/', {
+                const response = await fetch(`${API_BASE_URL}/exam/exam-results/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -82,10 +87,12 @@ function Results() {
                         style={{ margin: '0 19px', }}
                     />
                 )}
+                categoryKey='grade'
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
-                    course: item.course,
-                    score: item.exam_score,
+                    course_code: item.course_code,
+                    course_title: item.course_name,
+                    score: item.percentage_score,
                     grade: item.grade,
                 }))}
             />

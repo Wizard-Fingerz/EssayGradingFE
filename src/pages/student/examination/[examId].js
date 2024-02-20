@@ -38,11 +38,11 @@ function ExaminationPage() {
         const token = localStorage.getItem('token');
 
         // Check if the user has already submitted answers
-        const hasSubmitted = localStorage.getItem('hasSubmitted');
-        if (hasSubmitted) {
-            console.warn('Answers already submitted. You can only submit once.');
-            return;
-        }
+        // const hasSubmitted = localStorage.getItem('hasSubmitted');
+        // if (hasSubmitted) {
+        //     console.warn('Answers already submitted. You can only submit once.');
+        //     return;
+        // }
 
         // Strip HTML tags from all student answers
         const strippedAnswers = {};
@@ -68,7 +68,7 @@ function ExaminationPage() {
                 alert('Exam submitted successfully:', data);
 
                 // Set a flag indicating that the user has submitted answers
-                localStorage.setItem('hasSubmitted', 'true');
+                // localStorage.setItem('hasSubmitted', 'true');
 
                 // Logout user and remove token from local storage
                 localStorage.removeItem('token');
