@@ -22,10 +22,16 @@ const sidebarItems = [
     icon: FaUserGraduate,
   },
   {
-    name: "Exam",
+    name: "Questions",
+    href: "/examiner/questions",
+    icon: FaClipboard ,
+  },
+  {
+    name: "Exams",
     href: "/examiner/exam",
     icon: FaClipboard ,
   },
+
   {
     name: "Result",
     href: "/examiner/results",

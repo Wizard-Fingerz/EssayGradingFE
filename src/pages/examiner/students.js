@@ -5,6 +5,7 @@ import Modal from "@/components/ui-components/Modal";
 import Table from "@/components/ui-components/Table";
 import AddStudentForm from "@/components/AddStudentForm";
 import StudentBulkUpload from "@/components/StudentBulkUpload";
+import { API_BASE_URL } from '@/constants';
 import { useState, useEffect } from "react";
 import {
     FaEye,
@@ -99,7 +100,7 @@ function Students() {
         }
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/Course/delete-properties/${courseId}/`, {
+            const response = await fetch(`${API_BASE_URL}/Course/delete-properties/${courseId}/`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -134,7 +135,7 @@ function Students() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/students/', {
+                const response = await fetch(`${API_BASE_URL}/students/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,

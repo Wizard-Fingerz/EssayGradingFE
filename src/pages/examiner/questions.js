@@ -1,9 +1,8 @@
 import ExaminerBaseLayout from "@/components/ExaminerBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
+import CreateExamForm from "@/components/CreateExamForm";
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
-import AddCourseForm from "@/components/AddCourseForm";
-import CourseBulkUpload from "@/components/CourseBulkUpload";
 import { API_BASE_URL } from '@/constants';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
@@ -18,20 +17,37 @@ import {
 
 
 const table_column_heading = [
-    {
-        key: "title",
-        heading: "Title",
-    },
+
     {
         key: "course_code",
         heading: "Course Code",
     },
+    {
+        key: "course_title",
+        heading: "Course Title",
+    },
+    {
+        key: "comprehension",
+        heading: "Comprehension",
+    },
+    {
+        key: "question",
+        heading: "Question",
+    },
 
     {
-        key: "description",
-        heading: "Description",
+        key: "examiner_answer",
+        heading: "Examiner Answer",
     },
-    
+
+    {
+        key: "score",
+        heading: "Score",
+    },
+    {
+        key: "view-btn",
+        heading: "",
+    },
 
     {
         key: "edit-btn",
@@ -45,16 +61,19 @@ const table_column_heading = [
 ];
 
 
-function ExaminerDashboard() {
+function Questions() {
     const [tableData, setTableData] = useState([]);
-    
-    const [addCourseModal, setAddCourseModal] = useState(false);
-    const [bulkUploadModal, setBulkUploadModal] = useState(false);
-    const [downloadCourseModal, setDownloadCourseModal] = useState(false);
+
+    const [addExamModal, setAddExamModal] = useState(false);
+    const [bulkUpload, setBulkUploadModal] = useState(false);
+    const [downloadExamModal, setDownloadExamModal] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
+    const [viewModalData, setViewModalData] = useState(null);
     const [editModal, setEditModal] = useState(false);
     const [editModalData, setEditModalData] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteModalData, setDeleteModalData] = useState(null);
+
     
     const router = useRouter();
 
@@ -66,7 +85,16 @@ function ExaminerDashboard() {
         }
     }, []);
 
+    const openViewModal = (examId) => {
+        const selectedExam = tableData.find(item => item.id === examId);
+        setViewModalData(selectedExam);
+        setViewModal(true);
+    };
 
+    const closeViewModal = () => {
+        setViewModal(false);
+        window.location.reload();
+    };
 
 
     const openEditModal = (courseId) => {
@@ -80,6 +108,7 @@ function ExaminerDashboard() {
         setEditModal(false);
         window.location.reload();
     };
+
 
     const openDeleteModal = (courseId) => {
         const selectedCourse = tableData.find(item => item.id === courseId);
@@ -96,49 +125,6 @@ function ExaminerDashboard() {
     };
 
 
-    const closeAddCourseModal = () => {
-        setAddCourseModal(false);
-        window.location.reload();
-    };
-
-
-    const closeDownloadCourseModal = () => {
-        setDownloadCourseModal(false);
-        window.location.reload();
-    };
-
-
-    const deleteCourse = async (courseId) => {
-        const token = localStorage.getItem('token');
-
-        if (!token) {
-            console.error('Token not found in local storage');
-            return;
-        }
-
-        try {
-            const response = await fetch(`${API_BASE_URL}/course/delete-course/${courseId}/`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Token ${token}`,
-                },
-            });
-
-            if (response.ok) {
-                console.log('Course deleted successfully!');
-                // Handle success, you may want to fetch the updated data and update the table
-                fetchData();
-            } else {
-                console.error('Failed to delete Course');
-                // Handle error, show an error message
-                alert('Failed to delete Course!');
-            }
-        } catch (error) {
-            console.error('Network error:', error);
-            // Handle network error
-        }
-    };
-
     useEffect(() => {
         const fetchData = async () => {
 
@@ -151,7 +137,7 @@ function ExaminerDashboard() {
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/exam/courses-by-examiner/`, {
+                const response = await fetch(`${API_BASE_URL}/exam/examiner-questions/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -168,63 +154,65 @@ function ExaminerDashboard() {
         fetchData();
     }, []);
 
-    const openAddCourseModal = () => {
-        setAddCourseModal(true);
-    };
 
-    const openBulkCourseUploadModal = () => {
+    const openBulkUploadModal = () => {
         setBulkUploadModal(true);
     };
-    
 
-
-    const openDownloadCourseModal = () => {
-        setDownloadCourseModal(true);
+    const openAddExamModal = () => {
+        setAddExamModal(true);
     };
 
-    const closeBulkUploadModal = () => {
-        setBulkUploadModal(false);
+    const closeAddExamModal = () => {
+        setAddExamModal(false);
         window.location.reload();
     };
 
+    const openDownloadExamModal = () => {
+        setDownloadExamModal(true);
+    };
 
     return (
-
         <ExaminerBaseLayout>
+
             <Table
                 headingRightItem1={() => (
                     <ActionButton
-                        onClick={openAddCourseModal}
-                        label="Add Course"
+                        onClick={openAddExamModal}
+                        label="Add Exam"
                         // Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
                     />
 
                 )}
+
                 headingRightItem2={() => (
                     <ActionButton
-                        onClick={openBulkCourseUploadModal}
+                        onClick={openBulkUploadModal}
                         label="Bulk Upload"
                         // Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
                     />
 
                 )}
-                
                 headingRightItem3={() => (
                     <ActionButton
-                        onClick={openDownloadCourseModal}
+                        onClick={openDownloadExamModal}
                         label="Download All"
                         // Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
                     />
 
                 )}
+                categoryKey='course_code'
                 heading={table_column_heading}
                 data={tableData.map((item) => ({
-                    title: item.title,
-                    course_code: item.code,
-                    description: item.description,
+                    course_code: item.course_code,
+                    course_title: item.course_name,
+                    comprehension: item.comprehension,
+                    question: item.question,
+                    examiner_answer: item.examiner_answer,
+                    score: item.question_score,
                     "view-btn": {
                         component: () => (
                             <ActionButton
@@ -260,33 +248,21 @@ function ExaminerDashboard() {
                     },
                 }))}
 
-
-
             />
 
+
             <Modal
-                isOpen={addCourseModal}
-                heading={"Add Course"}
-                onClose={closeAddCourseModal}
+                isOpen={addExamModal}
+                heading={"Create Exam"}
+                onClose={closeAddExamModal}
             >
-                <AddCourseForm />
+                <CreateExamForm />
             </Modal>
-
-            
-            <Modal
-                isOpen={bulkUploadModal}
-                heading={"Bulk Upload Courses"}
-                onClose={closeBulkUploadModal}
-            >
-                {/* Your bulk upload form component will go here */}
-
-                <CourseBulkUpload />
-            </Modal>
-
 
         </ExaminerBaseLayout>
 
     )
+
 }
 
-export default ExaminerDashboard;
+export default Questions;

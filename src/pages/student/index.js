@@ -2,6 +2,7 @@ import StudentBaseLayout from "@/components/StudentBaseLayout";
 import ActionButton from "@/components/ui-components/ActionButton";
 import Table from "@/components/ui-components/Table";
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from '@/constants';
 import { useRouter } from 'next/router';
 import Modal from "@/components/ui-components/Modal";
 import CourseRegistrationForm from "@/components/CourseRegistration";
@@ -69,7 +70,7 @@ function StudentDashboard() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/student-courses/', {
+                const response = await fetch(`${API_BASE_URL}/exam/student-courses/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,

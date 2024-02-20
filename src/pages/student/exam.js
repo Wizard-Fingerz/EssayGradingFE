@@ -4,6 +4,7 @@ import CreateExamForm from "@/components/CreateExamForm";
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
 import { useState, useEffect, } from "react";
+import { API_BASE_URL } from '@/constants';
 import { useRouter } from 'next/router';
 import {
     FaCloudDownloadAlt,
@@ -74,7 +75,7 @@ function ExamPage() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/student-exams/', {
+                const response = await fetch(`${API_BASE_URL}/exam/student-exams/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,

@@ -4,6 +4,7 @@ import CreateExamForm from "@/components/CreateExamForm";
 import Table from "@/components/ui-components/Table";
 import Modal from "@/components/ui-components/Modal";
 import { useRouter } from 'next/router';
+import { API_BASE_URL } from '@/constants';
 import { useState, useEffect } from "react";
 import {
     FaCloudDownloadAlt,
@@ -18,43 +19,35 @@ import {
 const table_column_heading = [
 
     {
-        key: "course_code",
-        heading: "Course Code",
+        key: "course",
+        heading: "Course",
     },
     {
-        key: "course_title",
-        heading: "Course Title",
+        key: "examiner",
+        heading: "Examiner",
     },
     {
-        key: "comprehension",
-        heading: "Comprehension",
+        key: "number_of_questions",
+        heading: "Number of Questions",
     },
     {
-        key: "question",
-        heading: "Question",
-    },
-
-    {
-        key: "examiner_answer",
-        heading: "Examiner Answer",
-    },
-
-    {
-        key: "score",
-        heading: "Score",
+        key: "duration",
+        heading: "Duration",
     },
     {
-        key: "view-btn",
+        key: "instruction",
+        heading: "Instruction",
+    },
+    {
+        key: "total_mark",
+        heading: "Total Mark",
+    },
+    {
+        key: "start-btn",
         heading: "",
     },
-
     {
-        key: "edit-btn",
-        heading: "",
-    },
-
-    {
-        key: "delete-btn",
+        key: "end-btn",
         heading: "",
     },
 ];
@@ -73,7 +66,7 @@ function Exams() {
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteModalData, setDeleteModalData] = useState(null);
 
-    
+
     const router = useRouter();
 
     useEffect(() => {
@@ -136,7 +129,7 @@ function Exams() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:8000/exam/examiner-questions/', {
+                const response = await fetch(`${API_BASE_URL}/exam/examiner-questions/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
