@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FaBook, FaClipboard, FaUserGraduate, FaPoll } from 'react-icons/fa';
+import { FaBook, FaClipboard, FaUserGraduate, FaPoll, FaQuestionCircle } from 'react-icons/fa';
 import { TiContacts } from "react-icons/ti";
 import { AiOutlineFileText, AiOutlineLogin, AiOutlineLogout, AiOutlinePlusCircle } from "react-icons/ai";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -24,16 +24,16 @@ const sidebarItems = [
   {
     name: "Questions",
     href: "/examiner/questions",
-    icon: FaClipboard ,
+    icon: FaQuestionCircle,
   },
   {
     name: "Exams",
     href: "/examiner/exam",
-    icon: FaClipboard ,
+    icon: FaClipboard,
   },
 
   {
-    name: "Result",
+    name: "Results",
     href: "/examiner/results",
     icon: FaPoll ,
   },

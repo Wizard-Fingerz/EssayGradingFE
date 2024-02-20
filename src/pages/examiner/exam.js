@@ -14,17 +14,18 @@ import {
     FaTrash,
     FaEdit,
 } from "react-icons/fa";
+import QuestionBulkUpload from "@/components/QuestionBulkUpload";
 
 
 const table_column_heading = [
 
     {
-        key: "course",
-        heading: "Course",
+        key: "course_code",
+        heading: "Course Code",
     },
     {
-        key: "examiner",
-        heading: "Examiner",
+        key: "course_title",
+        heading: "Course Title",
     },
     {
         key: "number_of_questions",
@@ -46,6 +47,16 @@ const table_column_heading = [
         key: "start-btn",
         heading: "",
     },
+
+    {
+        key: "edit-btn",
+        heading: "",
+    },
+
+    {
+        key: "delete-btn",
+        heading: "",
+    },
     {
         key: "end-btn",
         heading: "",
@@ -57,7 +68,7 @@ function Exams() {
     const [tableData, setTableData] = useState([]);
 
     const [addExamModal, setAddExamModal] = useState(false);
-    const [bulkUpload, setBulkUploadModal] = useState(false);
+    const [bulkUploadModal, setBulkUploadModal] = useState(false);
     const [downloadExamModal, setDownloadExamModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [viewModalData, setViewModalData] = useState(null);
@@ -117,6 +128,16 @@ function Exams() {
     };
 
 
+    const openBulkUploadModal = () => {
+        setBulkUploadModal(true);
+    };
+
+    const closeBulkUploadModal = () => {
+        setBulkUploadModal(false);
+        window.location.reload();
+    };
+
+
     useEffect(() => {
         const fetchData = async () => {
 
@@ -129,7 +150,7 @@ function Exams() {
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/exam/examiner-questions/`, {
+                const response = await fetch(`${API_BASE_URL}/exam/examiner-exams/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -147,9 +168,7 @@ function Exams() {
     }, []);
 
 
-    const openBulkUploadModal = () => {
-        setBulkUploadModal(true);
-    };
+    
 
     const openAddExamModal = () => {
         setAddExamModal(true);
@@ -163,6 +182,15 @@ function Exams() {
     const openDownloadExamModal = () => {
         setDownloadExamModal(true);
     };
+
+
+    const handleClick = (examId, duration, courseName, instruction, totalMark, questions) => {
+
+        // localStorage.setItem('questions', JSON.stringify(questions));
+        // // Navigate to the exam page with the examId, other details, and questions as URL parameters
+        // router.push(`/student/examination/${examId}?duration=${duration}&courseName=${courseName}&instruction=${instruction}&totalMark=${totalMark}`);
+    };
+
 
     return (
         <ExaminerBaseLayout>
@@ -201,10 +229,32 @@ function Exams() {
                 data={tableData.map((item) => ({
                     course_code: item.course_code,
                     course_title: item.course_name,
-                    comprehension: item.comprehension,
-                    question: item.question,
-                    examiner_answer: item.examiner_answer,
-                    score: item.question_score,
+                    number_of_questions: item.questions.length,
+                    duration: item.duration,
+                    instruction: item.instruction,
+                    total_mark: item.total_mark,
+                    "start-btn": {
+                        component: () => (
+                            <ActionButton
+                                label="Start Exam"
+                                Icon={FaEdit}
+                                inverse={true}
+                                onClick={() => handleClick(item.course, item.duration, item.course_name, item.instruction, item.total_mark, item.questions)} // Pass the necessary details to handleClick
+                                style={{ color: 'green', borderColor: 'green' }}
+                            />
+                        ),
+                    },
+                    "end-btn": {
+                        component: () => (
+                            <ActionButton
+                                label="End Exam"
+                                Icon={FaEdit}
+                                inverse={true}
+                                onClick={() => handleClick(item.course, item.duration, item.course_name, item.instruction, item.total_mark, item.questions)} // Pass the necessary details to handleClick
+                                style={{ color: 'green', borderColor: 'green' }}
+                            />
+                        ),
+                    },
                     "view-btn": {
                         component: () => (
                             <ActionButton
@@ -249,6 +299,17 @@ function Exams() {
                 onClose={closeAddExamModal}
             >
                 <CreateExamForm />
+            </Modal>
+
+            
+            <Modal
+                isOpen={bulkUploadModal}
+                heading={"Bulk Upload Questions"}
+                onClose={closeBulkUploadModal}
+            >
+                {/* Your bulk upload form component will go here */}
+
+                <QuestionBulkUpload/>
             </Modal>
 
         </ExaminerBaseLayout>

@@ -14,6 +14,7 @@ import {
     FaTrash,
     FaEdit,
 } from "react-icons/fa";
+import QuestionBulkUpload from "@/components/QuestionBulkUpload";
 
 
 const table_column_heading = [
@@ -65,7 +66,7 @@ function Questions() {
     const [tableData, setTableData] = useState([]);
 
     const [addExamModal, setAddExamModal] = useState(false);
-    const [bulkUpload, setBulkUploadModal] = useState(false);
+    const [bulkUploadModal, setBulkUploadModal] = useState(false);
     const [downloadExamModal, setDownloadExamModal] = useState(false);
     const [viewModal, setViewModal] = useState(false);
     const [viewModalData, setViewModalData] = useState(null);
@@ -172,6 +173,11 @@ function Questions() {
         setDownloadExamModal(true);
     };
 
+    const closeBulkUploadModal = () => {
+        setBulkUploadModal(false);
+        window.location.reload();
+    };
+
     return (
         <ExaminerBaseLayout>
 
@@ -258,6 +264,18 @@ function Questions() {
             >
                 <CreateExamForm />
             </Modal>
+
+            
+            <Modal
+                isOpen={bulkUploadModal}
+                heading={"Bulk Upload Questions"}
+                onClose={closeBulkUploadModal}
+            >
+                {/* Your bulk upload form component will go here */}
+
+                <QuestionBulkUpload/>
+            </Modal>
+
 
         </ExaminerBaseLayout>
 
