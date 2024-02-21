@@ -61,7 +61,7 @@ function ExamPage() {
             router.push('/'); // Redirect to the login page if the token is not present
             alert('Redirected to login...')
         }
-    }, []);
+    }, [router]);
 
 
 

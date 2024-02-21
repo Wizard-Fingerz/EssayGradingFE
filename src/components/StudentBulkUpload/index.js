@@ -51,7 +51,7 @@ function StudentBulkUpload() {
         <div>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <p>Make sure the following fields are in your file: </p>
-                <b>'first_name', 'last_name', 'matric_number', 'password'</b>
+                <b>&lsquo;first_name&rsquo;, &lsquo;last_name&rsquo;, &lsquo;matric_number&rsquo;, &lsquo;password&rsquo;</b>
                 <div className={styles.inputCont}>
                     <label htmlFor="file">Select CSV File:</label>
                     <input type="file" id="file" accept=".csv" onChange={handleFileChange} className={styles.input} />

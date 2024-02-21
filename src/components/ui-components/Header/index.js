@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Image from 'next/image';
 import {
   IoNotificationsOutline,
 } from "react-icons/io5";
@@ -53,7 +54,7 @@ const NotificationsIcon = ({ onClick = () => {} }) => (
 const NotificationList = ({ img = null, desc = "", datetime = "" }) => {
   return (
     <li>
-      {img && <img src={img} alt="" />}
+      {img && <Image src={img} alt=""  width={50} height={50}/>}
       <div className={styles["single-notification"]}>
         <p>{desc}</p>
         <p>{datetime}</p>

@@ -21,7 +21,7 @@ function ExaminationPage() {
             router.push('/'); // Redirect to the login page if the token is not present
             alert('Redirected to login...')
         }
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         const storedQuestions = localStorage.getItem('questions');

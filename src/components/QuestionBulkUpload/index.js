@@ -51,7 +51,7 @@ function QuestionBulkUpload() {
         <div>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <p>Make sure the following fields are in your file: </p>
-                <b>'duration', 'instruction', 'course', 'comprehension', 'question', 'examiner_answer', 'question_score', 'total mark'</b>
+                <b>&lsquo;duration&rsquo;, &lsquo;instruction&rsquo;, &lsquo;course&rsquo;, &lsquo;comprehension&rsquo;, &lsquo;question&rsquo;, &lsquo;examiner_answer&rsquo;, &lsquo;question_score&rsquo;, &lsquo;total mark&rsquo;</b>
                 <div className={styles.inputCont}>
                     <label htmlFor="file">Select CSV File:</label>
                     <input type="file" id="file" accept=".csv" onChange={handleFileChange} className={styles.input} />

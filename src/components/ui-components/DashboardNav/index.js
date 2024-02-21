@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './Dashboard.module.css';
 
 function DashboardNav(props) {
@@ -18,8 +19,12 @@ function DashboardNav(props) {
         />
       </div>
       <div>
-        <img src='assets/logo_white.svg' alt="Logo" />
-      </div>
+      <Image
+          src="/assets/logo_white.svg"
+          alt="Logo"
+          width={100}
+          height={50}
+        /></div>
     </div>
   );
 }
