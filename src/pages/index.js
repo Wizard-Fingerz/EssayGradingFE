@@ -30,17 +30,13 @@ function HomePage() {
       if (response.ok) {
         const data = await response.json();
         if (data.user_type === 'student') {
-          // Display the token in the console
-          console.log('Token:', data.token);
-          console.log(data)
-          console.log('Question ID:', data.course_id)
+
           // Save the token to the local storage
           localStorage.setItem('token', data.token);
-          localStorage.setItem('course_id', data.course_id);
           router.push('/exam');
         }
         else {
-          alert('You don\'t have a student account, please contact your examiner')
+          alert(`You don&apos;t have a student account, please contact your examiner`);
         }
 
       } else {
@@ -84,7 +80,7 @@ function HomePage() {
             <br />
             <p>Intelligent Grading Pro is a cutting-edge web-based examination grading system, utilizing machine learning algorithms to efficiently evaluate theory questions in computer-based exams. Streamlining the grading process, it ensures consistent and objective assessments, providing educators with a user-friendly interface, customizable grading criteria, and valuable performance analytics for enhanced educational outcomes.</p>
             <br />
-            <p>Intelligent Grading Pro stands at the forefront of educational technology, offering a seamless experience for grading theory questions in computer-based exams. Its adaptive machine learning models ensure precise evaluations, while the system's user-friendly interface and customizable features empower educators with efficient tools for maintaining high standards in assessment and enhancing overall educational outcomes.</p>
+            <p>Intelligent Grading Pro stands at the forefront of educational technology, offering a seamless experience for grading theory questions in computer-based exams. Its adaptive machine learning models ensure precise evaluations, while the system&apos;s user-friendly interface and customizable features empower educators with efficient tools for maintaining high standards in assessment and enhancing overall educational outcomes.</p>
 
           </div><br />
           <div className={styles.homeButtons}>
