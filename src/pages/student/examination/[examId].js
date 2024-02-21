@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import dynamic from 'next/dynamic'; // Import dynamic from 'next/dynamic'
 import styles from "./exam.module.css";
 import { API_BASE_URL } from '@/constants';
-import ReactQuill from 'react-quill';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Use dynamic import with { ssr: false }
 import 'react-quill/dist/quill.snow.css'; // Import the styles
 
 function ExaminationPage() {
