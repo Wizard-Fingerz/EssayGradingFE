@@ -91,7 +91,7 @@ function Students() {
 
 
 
-    const deleteCourse = async (courseId) => {
+    const deleteStudent = async (studentId) => {
         const token = localStorage.getItem('token');
 
         if (!token) {
@@ -100,7 +100,7 @@ function Students() {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/Course/delete-properties/${courseId}/`, {
+            const response = await fetch(`${API_BASE_URL}/delete-student/${studentId}/`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -108,15 +108,17 @@ function Students() {
             });
 
             if (response.ok) {
-                console.log('Course deleted successfully!');
+                alert('Student deleted successfully!');
+                console.log('Student deleted successfully!');
                 // Handle success, you may want to fetch the updated data and update the table
                 fetchData();
             } else {
-                console.error('Failed to delete Course');
+                console.error('Failed to delete Student');
                 // Handle error, show an error message
-                alert('Failed to delete Course!');
+                alert('Failed to delete Student!');
             }
         } catch (error) {
+            alert('Network error:', error);
             console.error('Network error:', error);
             // Handle network error
         }
@@ -232,7 +234,7 @@ function Students() {
                                 label="Delete"
                                 Icon={FaTrash}
                                 inverse={true}
-                                onClick={openDeleteModal}
+                                onClick={() => openDeleteModal(item.id)} // Pass item.id to the openDeleteModal function
                                 style={{ color: 'red', borderColor: 'red' }}
                             />
                         ),
@@ -259,6 +261,30 @@ function Students() {
 
                 <StudentBulkUpload />
             </Modal>
+
+            <Modal
+                isOpen={deleteModal}
+                heading={"Delete Question"}
+                onClose={closeDeleteModal}
+            >
+                {/* Add your components for deleting property details */}
+                {/* For example: */}
+                <div>
+                    <p style={{ color: 'black', marginBottom: '30px' }}>Are you sure you want to delete this question?</p>
+                    <ActionButton
+                        label="Delete"
+                        Icon={FaTrash}
+                        inverse={true}
+                        onClick={() => {
+                            // Handle delete action here
+                            deleteStudent(deleteModalData.id);
+                            closeDeleteModal();
+                        }}
+                        style={{ color: 'red', borderColor: 'red' }}
+                    />
+                </div>
+            </Modal>
+
 
 
 

@@ -191,6 +191,41 @@ function Exams() {
         // router.push(`/student/examination/${examId}?duration=${duration}&courseName=${courseName}&instruction=${instruction}&totalMark=${totalMark}`);
     };
 
+    
+    const deleteExam = async (examId) => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token not found in local storage');
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/delete-exam/${examId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                alert('Exam deleted successfully!');
+                console.log('Exam deleted successfully!');
+                // Handle success, you may want to fetch the updated data and update the table
+                fetchData();
+            } else {
+                console.error('Failed to delete Exam');
+                // Handle error, show an error message
+                alert('Failed to delete Exam!');
+            }
+        } catch (error) {
+            alert('Network error:', error);
+            console.error('Network error:', error);
+            // Handle network error
+        }
+    };
+
+
 
     return (
         <ExaminerBaseLayout>
@@ -283,7 +318,7 @@ function Exams() {
                                 label="Delete"
                                 Icon={FaTrash}
                                 inverse={true}
-                                onClick={openDeleteModal}
+                                onClick={() => openDeleteModal(item.id)} // Pass item.id to the openDeleteModal function
                                 style={{ color: 'red', borderColor: 'red' }}
                             />
                         ),
@@ -311,6 +346,31 @@ function Exams() {
 
                 <QuestionBulkUpload/>
             </Modal>
+
+            
+            <Modal
+                isOpen={deleteModal}
+                heading={"Delete Exam"}
+                onClose={closeDeleteModal}
+            >
+                {/* Add your components for deleting property details */}
+                {/* For example: */}
+                <div>
+                    <p style={{ color: 'black', marginBottom: '30px' }}>Are you sure you want to delete this exam?</p>
+                    <ActionButton
+                        label="Delete"
+                        Icon={FaTrash}
+                        inverse={true}
+                        onClick={() => {
+                            // Handle delete action here
+                            deleteExam(deleteModalData.id);
+                            closeDeleteModal();
+                        }}
+                        style={{ color: 'red', borderColor: 'red' }}
+                    />
+                </div>
+            </Modal>
+
 
         </ExaminerBaseLayout>
 

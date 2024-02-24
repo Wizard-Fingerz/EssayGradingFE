@@ -25,7 +25,7 @@ function AddCourse() {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/exam/courses/', {
+            const response = await fetch(`${API_BASE_URL}/exam/courses/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Token ${token}`,

@@ -15,6 +15,7 @@ import {
     FaEdit,
 } from "react-icons/fa";
 import QuestionBulkUpload from "@/components/QuestionBulkUpload";
+import EditQuestionForm from "@/components/EditExamForm";
 
 
 const table_column_heading = [
@@ -46,11 +47,6 @@ const table_column_heading = [
         heading: "Score",
     },
     {
-        key: "view-btn",
-        heading: "",
-    },
-
-    {
         key: "edit-btn",
         heading: "",
     },
@@ -68,14 +64,12 @@ function Questions() {
     const [addExamModal, setAddExamModal] = useState(false);
     const [bulkUploadModal, setBulkUploadModal] = useState(false);
     const [downloadExamModal, setDownloadExamModal] = useState(false);
-    const [viewModal, setViewModal] = useState(false);
-    const [viewModalData, setViewModalData] = useState(null);
     const [editModal, setEditModal] = useState(false);
     const [editModalData, setEditModalData] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteModalData, setDeleteModalData] = useState(null);
 
-    
+
     const router = useRouter();
 
     useEffect(() => {
@@ -111,8 +105,8 @@ function Questions() {
     };
 
 
-    const openDeleteModal = (courseId) => {
-        const selectedCourse = tableData.find(item => item.id === courseId);
+    const openDeleteModal = (questionId) => {
+        const selectedCourse = tableData.find(item => item.id === questionId);
         setDeleteModalData(selectedCourse);
         setDeleteModal(true);
     };
@@ -178,6 +172,41 @@ function Questions() {
         window.location.reload();
     };
 
+
+    const deleteQuestion = async (questionId) => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token not found in local storage');
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/delete-course-question/${questionId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                alert('Question deleted successfully!');
+                console.log('Question deleted successfully!');
+                // Handle success, you may want to fetch the updated data and update the table
+                fetchData();
+            } else {
+                console.error('Failed to delete Course');
+                // Handle error, show an error message
+                alert('Failed to delete Course!');
+            }
+        } catch (error) {
+            alert('Network error:', error);
+            console.error('Network error:', error);
+            // Handle network error
+        }
+    };
+
+
     return (
         <ExaminerBaseLayout>
 
@@ -219,17 +248,7 @@ function Questions() {
                     question: item.question,
                     examiner_answer: item.examiner_answer,
                     score: item.question_score,
-                    "view-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="View"
-                                Icon={FaEye}
-                                inverse={true}
-                                onClick={openViewModal}
-                                style={{ color: 'blue', borderColor: 'blue' }}
-                            />
-                        ),
-                    },
+
                     "edit-btn": {
                         component: () => (
                             <ActionButton
@@ -247,7 +266,7 @@ function Questions() {
                                 label="Delete"
                                 Icon={FaTrash}
                                 inverse={true}
-                                onClick={openDeleteModal}
+                                onClick={() => openDeleteModal(item.id)} // Pass item.id to the openDeleteModal function
                                 style={{ color: 'red', borderColor: 'red' }}
                             />
                         ),
@@ -265,7 +284,7 @@ function Questions() {
                 <CreateExamForm />
             </Modal>
 
-            
+
             <Modal
                 isOpen={bulkUploadModal}
                 heading={"Bulk Upload Questions"}
@@ -273,8 +292,43 @@ function Questions() {
             >
                 {/* Your bulk upload form component will go here */}
 
-                <QuestionBulkUpload/>
+                <QuestionBulkUpload />
             </Modal>
+
+            <Modal
+                isOpen={editModal}
+                heading={"Edit Question"}
+                onClose={closeEditModal}
+            >
+                {/* Your bulk upload form component will go here */}
+
+                <EditQuestionForm />
+            </Modal>
+
+
+            <Modal
+                isOpen={deleteModal}
+                heading={"Delete Question"}
+                onClose={closeDeleteModal}
+            >
+                {/* Add your components for deleting property details */}
+                {/* For example: */}
+                <div>
+                    <p style={{ color: 'black', marginBottom: '30px' }}>Are you sure you want to delete this question?</p>
+                    <ActionButton
+                        label="Delete"
+                        Icon={FaTrash}
+                        inverse={true}
+                        onClick={() => {
+                            // Handle delete action here
+                            deleteQuestion(deleteModalData.id);
+                            closeDeleteModal();
+                        }}
+                        style={{ color: 'red', borderColor: 'red' }}
+                    />
+                </div>
+            </Modal>
+
 
 
         </ExaminerBaseLayout>

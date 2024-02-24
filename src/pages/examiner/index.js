@@ -117,7 +117,7 @@ function ExaminerDashboard() {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/course/delete-course/${courseId}/`, {
+            const response = await fetch(`${API_BASE_URL}/exam/delete-course/${courseId}/`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -253,7 +253,7 @@ function ExaminerDashboard() {
                                 label="Delete"
                                 Icon={FaTrash}
                                 inverse={true}
-                                onClick={openDeleteModal}
+                                onClick={() => openDeleteModal(item.id)} // Pass item.id to the openDeleteModal function
                                 style={{ color: 'red', borderColor: 'red' }}
                             />
                         ),
@@ -281,6 +281,31 @@ function ExaminerDashboard() {
                 {/* Your bulk upload form component will go here */}
 
                 <CourseBulkUpload />
+            </Modal>
+
+            
+
+            <Modal
+                isOpen={deleteModal}
+                heading={"Delete Course"}
+                onClose={closeDeleteModal}
+            >
+                {/* Add your components for deleting property details */}
+                {/* For example: */}
+                <div>
+                    <p style={{ color: 'black', marginBottom: '30px' }}>Are you sure you want to delete this course?</p>
+                    <ActionButton
+                        label="Delete"
+                        Icon={FaTrash}
+                        inverse={true}
+                        onClick={() => {
+                            // Handle delete action here
+                            deleteCourse(deleteModalData.id);
+                            closeDeleteModal();
+                        }}
+                        style={{ color: 'red', borderColor: 'red' }}
+                    />
+                </div>
             </Modal>
 
 
