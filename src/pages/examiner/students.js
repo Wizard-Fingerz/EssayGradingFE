@@ -264,7 +264,7 @@ function Students() {
 
             <Modal
                 isOpen={deleteModal}
-                heading={"Delete Question"}
+                heading={"Delete Student"}
                 onClose={closeDeleteModal}
             >
                 {/* Add your components for deleting property details */}
