@@ -14,13 +14,13 @@ function EditQuestionForm({ examData }) {
 
     
     // Set initial state based on propertyData when it changes
-    useEffect(() => {
-        setComprehension(examData.q.comprehension || '');
-        setQuestion(examData.question || '');
-        setExaminerAnswer(examData.examiner_answer || '');
-        setQuestionScore(examData.question_score || '');
+    // useEffect(() => {
+    //     setComprehension(examData.q.comprehension || '');
+    //     setQuestion(examData.question || '');
+    //     setExaminerAnswer(examData.examiner_answer || '');
+    //     setQuestionScore(examData.question_score || '');
 
-    }, [examData]);
+    // }, [examData]);
 
 
 
