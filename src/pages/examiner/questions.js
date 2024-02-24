@@ -78,7 +78,7 @@ function Questions() {
             router.push('/'); // Redirect to the login page if the token is not present
             alert('Redirected to login...')
         }
-    }, []);
+    }, [router]);
 
     const openViewModal = (examId) => {
         const selectedExam = tableData.find(item => item.id === examId);

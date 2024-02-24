@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import dynamic from 'next/dynamic'; // Import dynamic from 'next/dynamic'
 import styles from "./exam.module.css";
 import { API_BASE_URL } from '@/constants';
-import ReactQuill from 'react-quill';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }); // Use dynamic import with { ssr: false }
 import 'react-quill/dist/quill.snow.css'; // Import the styles
 
 function ExaminationPage() {
@@ -21,7 +23,7 @@ function ExaminationPage() {
             router.push('/'); // Redirect to the login page if the token is not present
             alert('Redirected to login...')
         }
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         const storedQuestions = localStorage.getItem('questions');
@@ -34,15 +36,8 @@ function ExaminationPage() {
 
     // Inside the handleSubmitAnswer function, strip HTML tags from the studentAnswer before sending it to the backend
     // Inside the handleSubmitAnswer function, strip HTML tags from all student answers before sending them to the backend
-    const handleSubmitAnswer = async () => {
+    const handleSubmitAnswer = useCallback(async () => {
         const token = localStorage.getItem('token');
-
-        // Check if the user has already submitted answers
-        // const hasSubmitted = localStorage.getItem('hasSubmitted');
-        // if (hasSubmitted) {
-        //     console.warn('Answers already submitted. You can only submit once.');
-        //     return;
-        // }
 
         // Strip HTML tags from all student answers
         const strippedAnswers = {};
@@ -82,7 +77,7 @@ function ExaminationPage() {
         } catch (error) {
             console.error('Error submitting answers:', error);
         }
-    };
+    }, [examId, studentAnswers, router]);
 
     // Function to strip HTML tags from the content
     const stripHtml = (html) => {
@@ -105,10 +100,9 @@ function ExaminationPage() {
             // Handle timer reaching zero (e.g., submit the exam)
             console.log('Time is up! Automatically submitting...');
             alert('Time is up! Automatically submitting...');
-            handleSubmitAnswer();
+            handleSubmitAnswer();  // <- Add handleSubmitAnswer to the dependency array
         }
-    }, [timer]);
-
+    }, [timer, handleSubmitAnswer]);
 
     useEffect(() => {
         // Reset the studentAnswer when the currentQuestionIndex changes
@@ -128,7 +122,8 @@ function ExaminationPage() {
         // Load saved student answers from state
         const savedAnswers = studentAnswers[questions[currentQuestionIndex]?.id];
         setStudentAnswer(savedAnswers || ''); // Set the answer to the saved answer or an empty string
-    }, [currentQuestionIndex, studentAnswers]);
+    }, [currentQuestionIndex, studentAnswers, questions]);
+
 
     // Update the Previous and Next button click handlers to update the Quill box with the saved answer for the target question
     const goToPreviousQuestion = () => {

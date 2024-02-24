@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./Table.module.css";
 import ActionButton from "@/components/ui-components/ActionButton";
 import PaginationButton from "@/components/ui-components/PaginationButton";
@@ -21,19 +21,16 @@ const Table = ({
     const [activeButton, setActiveButton] = useState("All");
 
     // Extract unique categories from data
-    // Extract unique categories from data only when data is not empty
-    const uniqueCategories = data.length > 0
-        ? [...new Set(data.map((item) => item[categoryKey] || "Others"))]
-        : [];
+    const uniqueCategories = useMemo(() => {
+        return data.length > 0 ? [...new Set(data.map((item) => item[categoryKey] || "Others"))] : [];
+    }, [data, categoryKey]);
 
-
-    console.log('Unique Categories:', uniqueCategories);
     // Update state with available categories
     const [availableCategories, setAvailableCategories] = useState(["All", ...uniqueCategories]);
 
     useEffect(() => {
         setAvailableCategories(["All", ...uniqueCategories]);
-    }, [data]); // Trigger the effect whenever data changes
+    }, [data, uniqueCategories]);
 
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);

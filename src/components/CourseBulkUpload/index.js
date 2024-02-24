@@ -49,26 +49,25 @@ function CourseBulkUpload() {
     
 
 
-    return(
+    return (
         <div>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <p>Make sure the following fields are in your file: </p>
-                <b>'title', 'code', 'description'</b>
-                <div className={styles.inputCont}>
-                    <label htmlFor="file">Select CSV File:</label>
-                    <input type="file" id="file" accept=".csv" onChange={handleFileChange} className={styles.input} />
-                </div>
-                <div className={styles.inputCont}>
-                    <button type="submit" className={styles.button} style={{ backgroundColor: '#FFA500' }} >Upload</button>
-
-                </div>
-                
-            </form>
-            
-            {uploadStatus === "success" && <p>Upload successful!</p>}
-            {uploadStatus === "error" && <p>Error uploading file.</p>}
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <p>Make sure the following fields are in your file: </p>
+            <b>&lsquo;title&rsquo;, &lsquo;code&rsquo;, &lsquo;description&rsquo;</b>
+            <div className={styles.inputCont}>
+              <label htmlFor="file">Select CSV File:</label>
+              <input type="file" id="file" accept=".csv" onChange={handleFileChange} className={styles.input} />
+            </div>
+            <div className={styles.inputCont}>
+              <button type="submit" className={styles.button} style={{ backgroundColor: '#FFA500' }}>Upload</button>
+            </div>
+          </form>
+      
+          {uploadStatus === "success" && <p>Upload successful!</p>}
+          {uploadStatus === "error" && <p>Error uploading file.</p>}
         </div>
-    );
+      );
+      
 }
 
 export default CourseBulkUpload;

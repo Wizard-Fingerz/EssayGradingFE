@@ -89,55 +89,8 @@ function QuestionBulkUpload() {
     return (
         <div>
             <form className={styles.form} onSubmit={handleSubmit}>
-                
-                    <div className={styles.inputCont}>
-                        <label>Duration:</label>
-                        <input
-                            type="text"
-                            placeholder="HH:MM:SS"
-                            value={duration}
-                            // onChange={(e) => setExamData({ ...examData, duration: e.target.value })}
-                            className={styles.input}
-                        />
-                    </div>
-
-                    <div className={styles.inputCont}>
-                        <label>Course:</label>
-                        <select
-                            value={course}
-                            onChange={(e) => setCourse(e.target.value)}
-                            className={styles.input}
-                        >
-                            <option value="" disabled>Select a course</option>
-                            {courses.map((course) => (
-                                <option key={course.id} value={course.id}>
-                                    {course.title}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className={styles.inputCont}>
-                        <label>Instruction:</label>
-                        <input
-                            type="text"
-                            value={instruction}
-                            onChange={(e) => setInstruction(e.target.value)}
-                            className={styles.input}
-                        />
-                    </div>
-
-                    <div className={styles.inputCont}>
-                        <label>Total Mark:</label>
-                        <input
-                            type="number"
-                            value={total_mark}
-                            onChange={(e) => setTotalMark(e.target.value)}
-                            className={styles.input}
-                        />
-                    </div>
-
-                <p>Make sure the following fields are in your file: <b>'comprehension', 'question', 'examiner_answer', 'question_score'</b></p>
-
+                <p>Make sure the following fields are in your file: </p>
+                <b>&lsquo;duration&rsquo;, &lsquo;instruction&rsquo;, &lsquo;course&rsquo;, &lsquo;comprehension&rsquo;, &lsquo;question&rsquo;, &lsquo;examiner_answer&rsquo;, &lsquo;question_score&rsquo;, &lsquo;total mark&rsquo;</b>
                 <div className={styles.inputCont}>
                     <label htmlFor="file">Select CSV File:</label>
                     <input type="file" id="file" accept=".csv" onChange={handleFileChange} className={styles.input} />
