@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from "./createExamForm.module.css";
 import { API_BASE_URL } from '@/constants';
 
-function EditQuestionForm() {
+function EditQuestionForm({ examData }) {
     const [comprehension, setComprehension] = useState('');
     const [question, setQuestion] = useState('');
     const [examiner_answer, setExaminerAnswer] = useState('');
@@ -11,6 +11,17 @@ function EditQuestionForm() {
 
     const [courses, setCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    
+    // Set initial state based on propertyData when it changes
+    useEffect(() => {
+        setComprehension(examData.q.comprehension || '');
+        setQuestion(examData.question || '');
+        setExaminerAnswer(examData.examiner_answer || '');
+        setQuestionScore(examData.question_score || '');
+
+    }, [examData]);
+
 
 
     return (

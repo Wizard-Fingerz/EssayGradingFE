@@ -92,9 +92,9 @@ function Questions() {
     };
 
 
-    const openEditModal = (courseId) => {
-        const selectedCourse = tableData.find(item => item.id === courseId);
-        setEditModalData(selectedCourse);
+    const openEditModal = (questionId) => {
+        const selectedQuestion = tableData.find(item => item.id === questionId);
+        setEditModalData(selectedQuestion);
         setEditModal(true);
     };
 
@@ -255,7 +255,7 @@ function Questions() {
                                 label="Edit"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={openEditModal}
+                                onClick={() => openEditModal(item.id)}
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),
@@ -283,6 +283,15 @@ function Questions() {
             >
                 <CreateExamForm />
             </Modal>
+
+            <Modal
+                isOpen={editModal}
+                heading={"Edit Exam"}
+                onClose={closeEditModal}
+            >
+                {editModalData && <EditQuestionForm examData={editModalData} />}
+            </Modal>
+
 
 
             <Modal
