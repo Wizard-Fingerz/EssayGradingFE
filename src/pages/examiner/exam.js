@@ -261,7 +261,8 @@ function Exams() {
                 )}
                 categoryKey='course_code'
                 heading={table_column_heading}
-                data={tableData.map((item) => ({
+                data={Array.isArray(tableData) ? tableData.map((item) => ({
+
                     course_code: item.course_code,
                     course_title: item.course_name,
                     number_of_questions: item.questions.length,
@@ -323,7 +324,7 @@ function Exams() {
                             />
                         ),
                     },
-                }))}
+                })) : []}
 
             />
 

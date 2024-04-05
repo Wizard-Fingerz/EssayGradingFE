@@ -122,7 +122,8 @@ function ExamPage() {
                     />
                 )}
                 heading={table_column_heading}
-                data={tableData.map((item) => ({
+                data={Array.isArray(tableData) ? tableData.map((item) => ({
+
                     course: item.course_name,
                     examiner: item.examiner,
                     number_of_questions: item.questions.length,
@@ -140,7 +141,7 @@ function ExamPage() {
                             />
                         ),
                     },
-                }))}
+                })) : []}
             />
         </StudentBaseLayout>
     );

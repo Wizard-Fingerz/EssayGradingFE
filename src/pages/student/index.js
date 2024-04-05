@@ -144,12 +144,13 @@ function StudentDashboard() {
 
                 )}
                 heading={table_column_heading}
-                data={tableData.map((item) => ({
+                data={Array.isArray(tableData) ? tableData.map((item) => ({
+
                     title: item.title,
                     course_code: item.code,
                     description: item.description,
 
-                }))}
+                })) : []}
 
             />
 

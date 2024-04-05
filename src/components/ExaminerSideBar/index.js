@@ -31,6 +31,12 @@ const sidebarItems = [
     href: "/examiner/exam",
     icon: FaClipboard,
   },
+  
+  {
+    name: "Scores",
+    href: "/examiner/scores",
+    icon: FaPoll ,
+  },
 
   {
     name: "Results",

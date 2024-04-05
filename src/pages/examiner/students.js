@@ -212,7 +212,8 @@ function Students() {
 
                 )}
                 heading={table_column_heading}
-                data={tableData.map((item) => ({
+                data={Array.isArray(tableData) ? tableData.map((item) => ({
+
                     first_name: item.first_name,
                     last_name: item.last_name,
                     matric_no: item.username,
@@ -239,7 +240,7 @@ function Students() {
                             />
                         ),
                     },
-                }))}
+                })) : []}
 
             />
 

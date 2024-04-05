@@ -18,20 +18,26 @@ const table_column_heading = [
         key: "student",
         heading: " Matric Number",
     },
+
     {
-        key: "score",
-        heading: "Percentage Score",
+        key: "question",
+        heading: "Question",
         // icon: FaLongArrowAltDown,
     },
     {
-        key: "grade",
-        heading: "Grade",
+        key: "score",
+        heading: "Student Score",
+        // icon: FaLongArrowAltDown,
+    },
+    {
+        key: "total_score",
+        heading: "Total Score",
     },
 
 ];
 
 
-function Results() {
+function Scores() {
     const [tableData, setTableData] = useState([]);
     const [downloadModal, setDownloadModal] = useState(false);
 
@@ -91,7 +97,6 @@ function Results() {
 
                 })) : []}
 
-
             />
 
 
@@ -101,4 +106,4 @@ function Results() {
 
 }
 
-export default Results;
+export default Scores;

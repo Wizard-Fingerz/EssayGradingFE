@@ -241,14 +241,13 @@ function Questions() {
                 )}
                 categoryKey='course_code'
                 heading={table_column_heading}
-                data={tableData.map((item) => ({
+                data={Array.isArray(tableData) ? tableData.map((item) => ({
                     course_code: item.course_code,
                     course_title: item.course_name,
                     comprehension: item.comprehension,
                     question: item.question,
                     examiner_answer: item.examiner_answer,
                     score: item.question_score,
-
                     "edit-btn": {
                         component: () => (
                             <ActionButton
@@ -266,13 +265,12 @@ function Questions() {
                                 label="Delete"
                                 Icon={FaTrash}
                                 inverse={true}
-                                onClick={() => openDeleteModal(item.id)} // Pass item.id to the openDeleteModal function
+                                onClick={() => openDeleteModal(item.id)}
                                 style={{ color: 'red', borderColor: 'red' }}
                             />
                         ),
                     },
-                }))}
-
+                })) : []}
             />
 
 
