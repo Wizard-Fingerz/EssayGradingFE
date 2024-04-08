@@ -87,6 +87,29 @@ function StudentDashboard() {
         fetchData();
     }, []);
 
+    const generateAndDownloadPdf = async () => {
+        // Generate and download the PDF Exam Slip
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/generate-exam-slip-pdf/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'exam_slip.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+        }
+    };
+
 
     const closeDownloadCourseModal = () => {
         setDownloadCourseModal(false);
@@ -122,16 +145,13 @@ function StudentDashboard() {
 
                 )}
                 headingRightItem2={() => (
-
                     <ActionButton
-                        onClick={openDownloadCourseModal}
+                        onClick={generateAndDownloadPdf}
                         label="Print Exam Slip"
-                        // Icon={FaCloudDownloadAlt}
+                        Icon={FaRegFilePdf}
                         style={{ margin: '0 19px', }}
                     />
-
                 )}
-                
 
                 headingRightItem3={() => (
 

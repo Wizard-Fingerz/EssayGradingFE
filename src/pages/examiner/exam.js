@@ -168,7 +168,7 @@ function Exams() {
     }, []);
 
 
-    
+
 
     const openAddExamModal = () => {
         setAddExamModal(true);
@@ -184,14 +184,55 @@ function Exams() {
     };
 
 
-    const handleClick = (examId, duration, courseName, instruction, totalMark, questions) => {
+    const handleInitiationClick = async (examId) => {
 
-        // localStorage.setItem('questions', JSON.stringify(questions));
-        // // Navigate to the exam page with the examId, other details, and questions as URL parameters
-        // router.push(`/student/examination/${examId}?duration=${duration}&courseName=${courseName}&instruction=${instruction}&totalMark=${totalMark}`);
+        const selectedExam = tableData.find(item => item.id === examId);
+        console.log(examId)
+
+        
+        const formData = new FormData();
+        formData.append('is_activate', 'True');
+
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token not found in local storage');
+            return;
+        }
+
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/start-end-exam/${examId}/`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                alert('Exam initiated successfully!');
+                console.log('Exam initiated successfully!');
+                // Handle success, you may want to fetch the updated data and update the table
+                fetchData();
+            } else {
+                console.error('Failed to initiated Exam');
+                // Handle error, show an error message
+                alert('Failed to initiated Exam!');
+            }
+        } catch (error) {
+            alert('Network error:', error);
+            console.error('Network error:', error);
+            // H
+
+
+            // localStorage.setItem('questions', JSON.stringify(questions));
+            // // Navigate to the exam page with the examId, other details, and questions as URL parameters
+            // router.push(`/student/examination/${examId}?duration=${duration}&courseName=${courseName}&instruction=${instruction}&totalMark=${totalMark}`);
+        }
     };
 
-    
+
+
     const deleteExam = async (examId) => {
         const token = localStorage.getItem('token');
 
@@ -275,7 +316,7 @@ function Exams() {
                                 label="Start Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleClick(item.course, item.duration, item.course_name, item.instruction, item.total_mark, item.questions)} // Pass the necessary details to handleClick
+                                onClick={() => handleInitiationClick()} // Pass the necessary details to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),
@@ -286,7 +327,7 @@ function Exams() {
                                 label="End Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleClick(item.course, item.duration, item.course_name, item.instruction, item.total_mark, item.questions)} // Pass the necessary details to handleClick
+                                onClick={() => handleInitiationClick(item.id)} // Pass the necessary details to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),
@@ -337,7 +378,7 @@ function Exams() {
                 <CreateExamForm />
             </Modal>
 
-            
+
             <Modal
                 isOpen={bulkUploadModal}
                 heading={"Bulk Upload Questions"}
@@ -345,10 +386,10 @@ function Exams() {
             >
                 {/* Your bulk upload form component will go here */}
 
-                <QuestionBulkUpload/>
+                <QuestionBulkUpload />
             </Modal>
 
-            
+
             <Modal
                 isOpen={deleteModal}
                 heading={"Delete Exam"}
