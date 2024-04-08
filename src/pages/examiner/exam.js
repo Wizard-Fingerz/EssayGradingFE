@@ -179,8 +179,28 @@ function Exams() {
         window.location.reload();
     };
 
-    const openDownloadExamModal = () => {
-        setDownloadExamModal(true);
+    const openDownloadExamModal = async () => {
+        // Generate and download the PDF Exam Slip
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/generate-exam-pdf/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'exam_list.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+        }
+
     };
 
 
@@ -189,7 +209,7 @@ function Exams() {
         const selectedExam = tableData.find(item => item.id === examId);
         console.log(examId)
 
-        
+
         const formData = new FormData();
         formData.append('is_activate', 'True');
 
@@ -295,7 +315,7 @@ function Exams() {
                     <ActionButton
                         onClick={openDownloadExamModal}
                         label="Download All"
-                        // Icon={FaCloudDownloadAlt}
+                        Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
                     />
 
