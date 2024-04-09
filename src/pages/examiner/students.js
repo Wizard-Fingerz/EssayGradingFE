@@ -178,6 +178,30 @@ function Students() {
         window.location.reload();
     };
 
+    const generateAndDownloadPdf = async () => {
+        // Generate and download the PDF Exam Slip
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_BASE_URL}/generate-students-list-pdf/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'student_list.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+        }
+    };
+
+
 
     return (
         <ExaminerBaseLayout>
@@ -204,7 +228,7 @@ function Students() {
 
                 headingRightItem3={() => (
                     <ActionButton
-                        onClick={openDownloadStudentModal}
+                        onClick={generateAndDownloadPdf}
                         label="Download All"
                         // Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
