@@ -18,20 +18,26 @@ const table_column_heading = [
         key: "student",
         heading: " Matric Number",
     },
-
+    
     {
         key: "question",
         heading: "Question",
         // icon: FaLongArrowAltDown,
     },
+
     {
-        key: "score",
+        key: "student_answer",
+        heading: " Student Answer",
+    },
+
+    {
+        key: "student_score",
         heading: "Student Score",
         // icon: FaLongArrowAltDown,
     },
     {
-        key: "total_score",
-        heading: "Total Score",
+        key: "question_score",
+        heading: "Question Score",
     },
 
 ];
@@ -53,7 +59,7 @@ function Scores() {
             }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/exam/examiner-exam-results/`, {
+                const response = await fetch(`${API_BASE_URL}/exam/examiner-exam-answers-score/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`,
@@ -111,8 +117,10 @@ function Scores() {
                     course_code: item.course_code,
                     course_title: item.course_name,
                     student: item.student,
-                    score: item.percentage_score,
-                    grade: item.grade,
+                    question: item.question,
+                    student_answer: item.student_answer,
+                    student_score: item.student_score,
+                    question_score: item.question_score,
 
                 })) : []}
 
