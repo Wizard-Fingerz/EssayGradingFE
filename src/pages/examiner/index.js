@@ -177,7 +177,7 @@ function ExaminerDashboard() {
     };
     
     const generateAndDownloadPdf = async () => {
-        // Generate and download the PDF Exam Slip
+        // Generate and download the PDF
         const token = localStorage.getItem('token');
         try {
             const response = await fetch(`${API_BASE_URL}/exam/generate-courses-pdf/`, {

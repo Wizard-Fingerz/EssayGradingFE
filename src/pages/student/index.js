@@ -111,16 +111,6 @@ function StudentDashboard() {
     };
 
 
-    const closeDownloadCourseModal = () => {
-        setDownloadCourseModal(false);
-        window.location.reload();
-    };
-
-
-    const openDownloadCourseModal = () => {
-        setDownloadCourseModal(true);
-    };
-
     const openCourseRegistrationModal = () => {
         setCourseRegistrationModal(true);
     };
@@ -153,16 +143,6 @@ function StudentDashboard() {
                     />
                 )}
 
-                headingRightItem3={() => (
-
-                    <ActionButton
-                        onClick={openDownloadCourseModal}
-                        label="Download All"
-                        // Icon={FaCloudDownloadAlt}
-                        style={{ margin: '0 19px', }}
-                    />
-
-                )}
                 heading={table_column_heading}
                 data={Array.isArray(tableData) ? tableData.map((item) => ({
 

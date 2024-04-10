@@ -75,13 +75,38 @@ function Results() {
     };
 
 
+    const generateAndDownloadPdf = async () => {
+        // Generate and download the PDF
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/generate-student-result-pdf/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'result.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+        }
+    };
+
+
+
     return (
         <StudentBaseLayout>
             {console.log("tableData:", tableData)}
             <Table
                 headingRightItem1={() => (
                     <ActionButton
-                        onClick={openDownloadModal}
+                        onClick={generateAndDownloadPdf}
                         label="Download All"
                         // Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
