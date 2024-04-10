@@ -200,10 +200,6 @@ function ExaminerDashboard() {
     };
 
 
-    const openDownloadCourseModal = () => {
-        setDownloadCourseModal(true);
-    };
-
     const closeBulkUploadModal = () => {
         setBulkUploadModal(false);
         window.location.reload();
