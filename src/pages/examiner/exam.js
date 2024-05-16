@@ -203,12 +203,9 @@ function Exams() {
 
     };
 
-
     const handleInitiationClick = async (examId) => {
-
         const selectedExam = tableData.find(item => item.id === examId);
-        console.log(examId)
-
+        console.log(examId);
 
         const formData = new FormData();
         formData.append('is_activate', 'True');
@@ -220,6 +217,44 @@ function Exams() {
             return;
         }
 
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/start-end-exam/${examId}/`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Exam initiated successfully!');
+                console.log('Exam initiated successfully!');
+                // // Handle success, you may want to fetch the updated data and update the table
+                // fetchData();
+            } else {
+                console.error('Failed to initiate Exam');
+                // Handle error, show an error message
+                alert('Failed to initiate Exam!');
+            }
+        } catch (error) {
+            alert('Network error:', error);
+            console.error('Network error:', error);
+        }
+    };
+
+    const handleEndExamClick = async (examId) => {
+        const selectedExam = tableData.find(item => item.id === examId);
+        console.log(examId);
+
+        const formData = new FormData();
+        formData.append('is_activate', 'False');
+
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token not found in local storage');
+            return;
+        }
 
         try {
             const response = await fetch(`${API_BASE_URL}/exam/start-end-exam/${examId}/`, {
@@ -227,27 +262,22 @@ function Exams() {
                 headers: {
                     'Authorization': `Token ${token}`,
                 },
+                body: formData
             });
 
             if (response.ok) {
-                alert('Exam initiated successfully!');
-                console.log('Exam initiated successfully!');
-                // Handle success, you may want to fetch the updated data and update the table
-                fetchData();
+                alert('Exam ended successfully!');
+                console.log('Exam ended successfully!');
+                // // Handle success, you may want to fetch the updated data and update the table
+                // fetchData();
             } else {
-                console.error('Failed to initiated Exam');
+                console.error('Failed to end Exam');
                 // Handle error, show an error message
-                alert('Failed to initiated Exam!');
+                alert('Failed to end Exam!');
             }
         } catch (error) {
             alert('Network error:', error);
             console.error('Network error:', error);
-            // H
-
-
-            // localStorage.setItem('questions', JSON.stringify(questions));
-            // // Navigate to the exam page with the examId, other details, and questions as URL parameters
-            // router.push(`/student/examination/${examId}?duration=${duration}&courseName=${courseName}&instruction=${instruction}&totalMark=${totalMark}`);
         }
     };
 
@@ -336,7 +366,7 @@ function Exams() {
                                 label="Start Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleInitiationClick()} // Pass the necessary details to handleClick
+                                onClick={() => handleInitiationClick(item.id)} // Pass the examId to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),
@@ -347,11 +377,12 @@ function Exams() {
                                 label="End Exam"
                                 Icon={FaEdit}
                                 inverse={true}
-                                onClick={() => handleInitiationClick(item.id)} // Pass the necessary details to handleClick
+                                onClick={() => handleEndExamClick(item.id)} // Pass the examId to handleClick
                                 style={{ color: 'green', borderColor: 'green' }}
                             />
                         ),
                     },
+                    
                     "view-btn": {
                         component: () => (
                             <ActionButton
