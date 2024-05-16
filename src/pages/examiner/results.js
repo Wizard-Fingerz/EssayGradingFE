@@ -113,12 +113,35 @@ function Results() {
         setDownloadModal(true);
     };
 
+    const generateAndDownloadPdf = async () => {
+        // Generate and download the PDF Exam Slip
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(`${API_BASE_URL}/exam/generate-students-result-pdf/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                },
+            });
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'student_results.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+        }
+    };
+
     return (
         <ExaminerBaseLayout>
             <Table
                 headingRightItem1={() => (
                     <ActionButton
-                        onClick={openDownloadModal}
+                        onClick={generateAndDownloadPdf}
                         label="Download All"
                         style={{ margin: '0 19px' }}
                     />
