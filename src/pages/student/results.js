@@ -119,6 +119,7 @@ function Results() {
                     course_title: item.course_name,
                     score: item.percentage_score,
                     grade: item.grade,
+                    
                 })) : []}
             />
         </StudentBaseLayout>
