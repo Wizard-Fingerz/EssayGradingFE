@@ -8,7 +8,6 @@
     border: 1px solid rgb(211, 211, 211);
     margin: 20px;
     box-shadow: 0 4px 8px rgba(138, 43, 226, 0.1);
-
 }
 
 .table-header {
@@ -18,7 +17,6 @@
     box-sizing: border-box;
     align-items: center;
     color: #0b0b29;
-
 }
 
 .table-wrapper {
@@ -31,7 +29,6 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    /* background: #fff; */
     text-align: left;
     color: #0b0b29;
 }
@@ -39,22 +36,22 @@
 .table th {
     font-size: 12px;
     color: #0b0b29;
-
-}
-
-.tbody{
-    color: #0b0b29;
-
-}
-
-.table tr {
-    border-top: 1px solid rgb(211, 211, 211);
-    color: #0b0b29;
+    vertical-align: top; /* Align text to the top */
 }
 
 .table td,
 .table th {
     padding: 10px;
+    color: #0b0b29;
+    vertical-align: top; /* Align text to the top */
+}
+
+.tbody {
+    color: #0b0b29;
+}
+
+.table tr {
+    border-top: 1px solid rgb(211, 211, 211);
     color: #0b0b29;
 }
 
@@ -65,16 +62,14 @@
 
 .table tr td:not(:nth-of-type(1)) {
     color: #0b0b29;
-    /* color: gray; */
 }
 
 .table tr td span {
     display: inline-block;
-
     color: #0b0b29;
 }
 
-.table tr td span:nth-of-type(1)>svg {
+.table tr td span:nth-of-type(1) > svg {
     font-size: 20px;
     margin-right: 5px;
     position: relative;
@@ -99,16 +94,13 @@
     top: 0;
     background-color: white;
     color: #0b0b29;
-    /* z-index: 1; */
 }
 
-/* Additional styles for fixed table header */
 .fixed-header-wrapper {
     position: sticky;
     top: 0;
     overflow-y: auto;
     max-height: 400px;
     background-color: white;
-    /* z-index: 2; */
     color: #0b0b29;
 }
