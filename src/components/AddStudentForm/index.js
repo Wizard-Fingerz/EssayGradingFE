@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styles from "@/pages/page.module.css";
+import styles from "./addStudent.module.css";
 import { API_BASE_URL } from '@/constants';
 
 
@@ -7,8 +7,10 @@ function AddStudent() {
     const [course, setCourse] = useState('');
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
+    const [center_number, setCenterNumber] = useState('');
     const [password, setPassword] = useState('');
-    const [matric_num, setMatricNo] = useState('');
+    const [candidate_num, setCandidateNumber] = useState('');
+    const [exam_num, setExamNo] = useState('');
     const [courses, setCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -19,8 +21,11 @@ function AddStudent() {
         // formData.append('course_id', course);
         formData.append('first_name', first_name);
         formData.append('last_name', last_name);
-        formData.append('matric_number', matric_num);
-        formData.append('username', matric_num);
+        formData.append('matric_number', exam_num);
+        formData.append('examination_number', exam_num);
+        formData.append('candidate_number', candidate_num);
+        formData.append('center_number', center_number);
+        formData.append('username', exam_num);
         formData.append('password', password);
 
 
@@ -46,6 +51,13 @@ function AddStudent() {
 
                 // Display alert on successful submission
                 alert('Student registered successfully!');
+                setFirstName('');
+                setLastName('');
+                setCenterNumber('');
+                setCandidateNumber('');
+                setExamNo('');
+                setPassword('');
+                setMatricNo('');
 
             } else {
                 console.error('Failed to register Student');
@@ -97,54 +109,84 @@ function AddStudent() {
         <div>
 
             <form className={styles.form} onSubmit={handleFormSubmit}>
-                <div className={styles.inputCont}>
-                    <label>First Name:</label>
-                    <input
-                        type="text"
-                        value={first_name}
-                        onChange={(e) => setFirstName(e.target.value)}
+            <div className={styles.rowedForm}>
 
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.inputCont}>
-                    <label>Last Name:</label>
-                    <input
-                        type="text"
-                        value={last_name}
-                        onChange={(e) => setLastName(e.target.value)}
+                <div className={styles.left}>
 
-                        className={styles.input}
-                    />
-                </div><div className={styles.inputCont}>
-                    <label>Matric Number:</label>
-                    <input
-                        type="text"
-                        value={matric_num}
-                        onChange={(e) => setMatricNo(e.target.value)}
+                    <div className={styles.inputCont}>
+                        <label>First Name:</label>
+                        <input
+                            type="text"
+                            value={first_name}
+                            onChange={(e) => setFirstName(e.target.value)}
 
-                        className={styles.input}
-                    />
-                </div>
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles.inputCont}>
+                        <label>Last Name:</label>
+                        <input
+                            type="text"
+                            value={last_name}
+                            onChange={(e) => setLastName(e.target.value)}
 
-                <div className={styles.inputCont}>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                            className={styles.input}
+                        />
 
-                        className={styles.input}
-                    />
+                    </div>
+
+                    <div className={styles.inputCont}>
+                        <label>Center Number:</label>
+                        <input
+                            type="text"
+                            value={center_number}
+                            onChange={(e) => setCenterNumber(e.target.value)}
+
+                            className={styles.input}
+                        />
+                    </div>
                 </div>
 
+                <div className={styles.right}>
+                <div className={styles.inputCont}>
+                        <label>Candidate Number:</label>
+                        <input
+                            type="text"
+                            value={candidate_num}
+                            onChange={(e) => setCandidateNumber(e.target.value)}
 
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles.inputCont}>
+                        <label>Examination Number:</label>
+                        <input
+                            type="text"
+                            value={exam_num}
+                            onChange={(e) => setExamNo(e.target.value)}
+
+                            className={styles.input}
+                        />
+                    </div>
+
+                    <div className={styles.inputCont}>
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+
+                            className={styles.input}
+                        />
+                    </div>
+                </div>
+
+                </div>
 
                 <div className={styles.inputCont}>
                     <button className={styles.button} style={{ backgroundColor: '#FFA500' }} >Submit</button><br />
 
                 </div>
-
             </form>
         </div>
     );

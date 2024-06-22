@@ -85,7 +85,7 @@ function HomePage() {
           </div><br />
           <div className={styles.homeButtons}>
 
-            <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleStudentLogin}>Student Login</button><br />
+            {/* <button className={styles.button} style={{ backgroundColor: '#FFA500' }} onClick={handleStudentLogin}>Student Login</button><br /> */}
             <button className={styles.button} style={{ backgroundColor: '#000080' }} onClick={handleExaminerLogin}>Examiner Login</button>
           </div>
         </div>

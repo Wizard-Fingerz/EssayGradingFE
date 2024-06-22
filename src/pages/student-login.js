@@ -72,7 +72,7 @@ function LoginPage() {
           </div>
           <h2>Student Login</h2> <br/>
 
-          <p>Kindly Login with any of<br /> <b className={styles.boldedText}>Registration Number or Matric number</b></p>
+          <p>Kindly Login with any of<br /> <b className={styles.boldedText}>Registration Number or Candidate number</b></p>
           <div className={styles.inputCont}>
             {/* <label>Username:</label><br /> */}
             <input

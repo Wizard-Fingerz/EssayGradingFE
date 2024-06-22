@@ -16,7 +16,7 @@ const table_column_heading = [
 
     {
         key: "student",
-        heading: " Matric Number",
+        heading: " Candidate Number",
     },
     
     {

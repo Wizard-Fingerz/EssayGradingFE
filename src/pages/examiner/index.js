@@ -24,7 +24,7 @@ const table_column_heading = [
     },
     {
         key: "course_code",
-        heading: "Course Code",
+        heading: "Subject Code",
     },
 
     {
@@ -213,7 +213,7 @@ function ExaminerDashboard() {
                 headingRightItem1={() => (
                     <ActionButton
                         onClick={openAddCourseModal}
-                        label="Add Course"
+                        label="Add Subject"
                         // Icon={FaCloudDownloadAlt}
                         style={{ margin: '0 19px', }}
                     />
@@ -284,7 +284,7 @@ function ExaminerDashboard() {
 
             <Modal
                 isOpen={addCourseModal}
-                heading={"Add Course"}
+                heading={"Add Subject"}
                 onClose={closeAddCourseModal}
             >
                 <AddCourseForm />
@@ -293,7 +293,7 @@ function ExaminerDashboard() {
             
             <Modal
                 isOpen={bulkUploadModal}
-                heading={"Bulk Upload Courses"}
+                heading={"Bulk Upload Subject"}
                 onClose={closeBulkUploadModal}
             >
                 {/* Your bulk upload form component will go here */}

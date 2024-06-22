@@ -53,7 +53,7 @@ function CreateExam() {
                     course: '',
                     instruction: '',
                     total_mark: '',
-                    questions: [{ serial: 1, comprehension: '', question: '',course: '', examiner_answer: '', question_score: '' }],
+                    questions: [{ serial: 1, comprehension: '', question: '', course: '', examiner_answer: '', question_score: '' }],
                 });
             } else {
                 console.error('Exam creation failed');
@@ -189,9 +189,23 @@ function CreateExam() {
                                 {examData.questions.map((question, index) => (
 
                                     <div key={index} className={styles.inputCont}>
-                                        <label>Question Number: {question.serial}</label><br />
-                                        <label>Comprehension:</label>
+                                        <label>Question Number:</label><br />
                                         <input
+                                            type="text"
+                                            value={question.serial}
+                                            onChange={(e) => handleQuestionChange(index, 'question_num', e.target.value)}
+                                            className={styles.input}
+                                        />
+                                        <div>
+                                            <label>Is Optional: </label>
+                                            <input
+                                                type='checkbox'
+                                                value={question.isOptional}
+                                                onChange={(e) => handleQuestionChange(index, 'is_optional', e.target.value)}
+                                            />
+                                        </div>
+                                        <label>Comprehension:</label>
+                                        <textarea
                                             type="text"
                                             value={question.comprehension}
                                             onChange={(e) => handleQuestionChange(index, 'comprehension', e.target.value)}
@@ -199,7 +213,7 @@ function CreateExam() {
                                         />
 
                                         <label>Question:</label>
-                                        <input
+                                        <textarea
                                             type="text"
                                             value={question.question}
                                             onChange={(e) => handleQuestionChange(index, 'question', e.target.value)}
@@ -207,7 +221,7 @@ function CreateExam() {
                                         />
 
                                         <label>Examiner Answer:</label>
-                                        <input
+                                        <textarea
                                             type="text"
                                             value={question.examiner_answer}
                                             onChange={(e) => handleQuestionChange(index, 'examiner_answer', e.target.value)}

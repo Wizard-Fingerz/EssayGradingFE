@@ -24,9 +24,21 @@ const table_column_heading = [
         heading: "Last Name",
     },
 
+    
     {
-        key: "matric_no",
-        heading: "Matric Number",
+        key: "center_num",
+        heading: "Center Number",
+    },
+
+    {
+        key: "candidate_no",
+        heading: "Candidate Number",
+    },
+
+    
+    {
+        key: "exam_no",
+        heading: "Examination Number",
     },
 
     {
@@ -241,6 +253,9 @@ function Students() {
                     first_name: item.first_name,
                     last_name: item.last_name,
                     matric_no: item.username,
+                    exam_no: item.student.examination_number ?? '',
+                    center_num: item.student.center_number,
+                    candidate_no: item.student.candidate_number,
 
                     "edit-btn": {
                         component: () => (

@@ -126,6 +126,7 @@ const Table = ({
                                 background: 'none',
                                 fontSize: '16px',
                                 padding: '20px',
+                                color: 'black',
                                 border: '0.5px solid grey',
                                 borderColor: 'grey',
                                 paddingLeft: '40px', // Add left padding to accommodate the search icon

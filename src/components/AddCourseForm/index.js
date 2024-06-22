@@ -34,11 +34,16 @@ function AddCourse() {
             });
 
             if (response.ok) {
-                console.log('Course created successfully!');
+                console.log('Subject created successfully!');
                 // Handle success, redirect or show a success message
 
                 // Display alert on successful submission
-                alert('Course submitted successfully!');
+                alert('Subject submitted successfully!');
+
+                // Clear the form fields
+                setCourseTitle('');
+                setCourseCode('');
+                setCourseDesc('');
 
             } else {
                 console.error('Failed to create Course');
@@ -60,7 +65,7 @@ function AddCourse() {
 
             <form className={styles.form} onSubmit={handleFormSubmit}>
                 <div className={styles.inputCont}>
-                    <label>Course Title:</label>
+                    <label>Subject Name:</label>
                     <input
                         type="text"
                         value={course_title}
@@ -70,7 +75,7 @@ function AddCourse() {
                     />
                 </div>
                 <div className={styles.inputCont}>
-                    <label>Course Code:</label>
+                    <label>Subject Number/Code:</label>
                     <input
                         type="text"
                         value={course_code}
@@ -79,7 +84,7 @@ function AddCourse() {
                         className={styles.input}
                     />
                 </div><div className={styles.inputCont}>
-                    <label>Course Description:</label>
+                    <label>Subject Description:</label>
                     <textarea
                         value={course_desc}
                         onChange={(e) => setCourseDesc(e.target.value)}

@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 // import ActionButton from "@/components/sample_components/ui-components/ActionButton";
 // import Modal from "@/components/sample_components/ui-components/Modal";
 import NextLink from "next/link";
+import { FiCheckCircle } from 'react-icons/fi';
 
 const sidebarItems = [
   {
@@ -30,6 +31,12 @@ const sidebarItems = [
     name: "Exams",
     href: "/examiner/exam",
     icon: FaClipboard,
+  },
+  
+  {
+    name: "Mark Exam",
+    href: "/examiner/mark",
+    icon: FiCheckCircle ,
   },
   
   {
