@@ -15,6 +15,8 @@ import {
     FaEdit,
 } from "react-icons/fa";
 import UploadScript from "@/components/UploadScripts";
+import ScriptsBulkUpload from "@/components/ScriptsBulkUpload";
+import UploadScriptPerQuestion from "@/components/UploadScriptPerQuestion";
 
 
 
@@ -60,6 +62,8 @@ function MarkExam() {
     const [tableData, setTableData] = useState([]);
 
     const [uploadScriptModal, setUploadScriptModal] = useState(false);
+    const [bulkUploadModal, setBulkUploadModal] = useState(false);
+    const [singleScriptPerQuestionUploadModal, setSingleScriptPerQuestionUploadModalModal] = useState(false);
 
     const openUploadScriptModal = () => {
         setUploadScriptModal(true);
@@ -69,6 +73,28 @@ function MarkExam() {
         setUploadScriptModal(false);
         window.location.reload();
     };
+
+    const openBulkUploadModal = () => {
+        setBulkUploadModal(true);
+    };
+
+    
+    const closeBulkUploadModal = () => {
+        setBulkUploadModal(false);
+        window.location.reload();
+    };
+
+    const openUploadPerQuestionModal = () => {
+        setSingleScriptPerQuestionUploadModalModal(true);
+    };
+
+    
+    const closeUploadPerQuestionModal = () => {
+        setSingleScriptPerQuestionUploadModalModal(false);
+        window.location.reload();
+    };
+
+    
 
     return (
         <ExaminerBaseLayout>
@@ -84,24 +110,25 @@ function MarkExam() {
 
                 )}
 
-                // headingRightItem2={() => (
-                //     <ActionButton
-                //         onClick={openBulkUploadModal}
-                //         label="Bulk Upload"
-                //         // Icon={FaCloudDownloadAlt}
-                //         style={{ margin: '0 19px', }}
-                //     />
+                headingRightItem2={() => (
+                    <ActionButton
+                        onClick={openBulkUploadModal}
+                        label="Bulk Scripts Upload"
+                        // Icon={FaCloudDownloadAlt}
+                        style={{ margin: '0 19px', }}
+                    />
 
-                // )}
-                // headingRightItem3={() => (
-                //     <ActionButton
-                //         onClick={openDownloadExamModal}
-                //         label="Download All"
-                //         Icon={FaCloudDownloadAlt}
-                //         style={{ margin: '0 19px', }}
-                //     />
+                )}
 
-                // )}
+                headingRightItem3={() => (
+                    <ActionButton
+                        onClick={openUploadPerQuestionModal}
+                        label="Upload Script per Question"
+                        // Icon={FaCloudDownloadAlt}
+                        style={{ margin: '0 19px', }}
+                    />
+
+                )}
                 categoryKey='course_code'
                 heading={table_column_heading}
                 data={Array.isArray(tableData) ? tableData.map((item) => ({
@@ -183,6 +210,28 @@ function MarkExam() {
 
                 <UploadScript />
             </Modal>
+
+            <Modal
+                isOpen={bulkUploadModal}
+                heading={"Bulk Upload Scripts"}
+                onClose={closeBulkUploadModal}
+            >
+                {/* Your bulk upload form component will go here */}
+
+                <ScriptsBulkUpload />
+            </Modal>
+
+            <Modal
+                isOpen={singleScriptPerQuestionUploadModal}
+                heading={"Upload Scripts per Question"}
+                onClose={closeUploadPerQuestionModal}
+            >
+                {/* Your bulk upload form component will go here */}
+
+                <UploadScriptPerQuestion />
+            </Modal>
+
+            
 
 
 
