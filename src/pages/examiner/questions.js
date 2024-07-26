@@ -24,6 +24,11 @@ const table_column_heading = [
         key: "course_code",
         heading: "Course Code",
     },
+    
+    {
+        key: "question_number",
+        heading: "Question Number",
+    },
     {
         key: "course_title",
         heading: "Course Title",
@@ -244,6 +249,7 @@ function Questions() {
                 data={Array.isArray(tableData) ? tableData.map((item) => ({
                     course_code: item.course_code,
                     course_title: item.course_name,
+                    question_number: item.question_number,
                     comprehension: item.comprehension,
                     question: item.question,
                     examiner_answer: item.examiner_answer,

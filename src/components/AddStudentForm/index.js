@@ -6,11 +6,13 @@ import { API_BASE_URL } from '@/constants';
 function AddStudent() {
     const [course, setCourse] = useState('');
     const [first_name, setFirstName] = useState('');
+    const [other_name, setOtherName] = useState('');
     const [last_name, setLastName] = useState('');
     const [center_number, setCenterNumber] = useState('');
-    const [password, setPassword] = useState('');
     const [candidate_num, setCandidateNumber] = useState('');
     const [exam_num, setExamNo] = useState('');
+    const [exam_type, setExamType] = useState('');
+    const [exam_year, setExamYear] = useState('');
     const [courses, setCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -21,12 +23,14 @@ function AddStudent() {
         // formData.append('course_id', course);
         formData.append('first_name', first_name);
         formData.append('last_name', last_name);
+        formData.append('other_name', other_name);
         formData.append('matric_number', exam_num);
         formData.append('examination_number', exam_num);
+        formData.append('year', exam_year);
+        formData.append('exam_type', exam_type);
         formData.append('candidate_number', candidate_num);
         formData.append('center_number', center_number);
         formData.append('username', exam_num);
-        formData.append('password', password);
 
 
         const token = localStorage.getItem('token');
@@ -52,12 +56,14 @@ function AddStudent() {
                 // Display alert on successful submission
                 alert('Student registered successfully!');
                 setFirstName('');
+                setOtherName('');
                 setLastName('');
                 setCenterNumber('');
                 setCandidateNumber('');
                 setExamNo('');
-                setPassword('');
                 setMatricNo('');
+                setExamType('');
+                setExamYear('');
 
             } else {
                 console.error('Failed to register Student');
@@ -124,6 +130,18 @@ function AddStudent() {
                         />
                     </div>
                     <div className={styles.inputCont}>
+                        <label>Other Name:</label>
+                        <input
+                            type="text"
+                            value={other_name}
+                            onChange={(e) => setOtherName(e.target.value)}
+
+                            className={styles.input}
+                        />
+
+                    </div>
+
+                    <div className={styles.inputCont}>
                         <label>Last Name:</label>
                         <input
                             type="text"
@@ -170,6 +188,28 @@ function AddStudent() {
                     </div>
 
                     <div className={styles.inputCont}>
+                        <label>Examination Type:</label>
+                        <input
+                            type="text"
+                            value={exam_type}
+                            onChange={(e) => setExamType(e.target.value)}
+
+                            className={styles.input}
+                        />
+                    </div>
+
+                    <div className={styles.inputCont}>
+                        <label>Examination Year:</label>
+                        <input
+                            type="text"
+                            value={exam_year}
+                            onChange={(e) => setExamYear(e.target.value)}
+
+                            className={styles.input}
+                        />
+                    </div>
+
+                    {/* <div className={styles.inputCont}>
                         <label>Password:</label>
                         <input
                             type="password"
@@ -178,7 +218,7 @@ function AddStudent() {
 
                             className={styles.input}
                         />
-                    </div>
+                    </div> */}
                 </div>
 
                 </div>

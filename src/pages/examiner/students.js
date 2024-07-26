@@ -20,6 +20,10 @@ const table_column_heading = [
         heading: "First Name",
     },
     {
+        key: "other_name",
+        heading: "Other Name",
+    },
+    {
         key: "last_name",
         heading: "Last Name",
     },
@@ -39,6 +43,18 @@ const table_column_heading = [
     {
         key: "exam_no",
         heading: "Examination Number",
+    },
+
+    
+    {
+        key: "exam_type",
+        heading: "Examination Type",
+    },
+
+    
+    {
+        key: "exam_year",
+        heading: "Examination Year",
     },
 
     {
@@ -247,15 +263,19 @@ function Students() {
                     />
 
                 )}
+                categoryKey='center_num'
                 heading={table_column_heading}
                 data={Array.isArray(tableData) ? tableData.map((item) => ({
 
                     first_name: item.first_name,
+                    other_name: item.other_name,
                     last_name: item.last_name,
                     matric_no: item.username,
                     exam_no: item.student.examination_number ?? '',
                     center_num: item.student.center_number,
                     candidate_no: item.student.candidate_number,
+                    exam_type: item.student.exam_type,
+                    exam_year: item.student.year,
 
                     "edit-btn": {
                         component: () => (

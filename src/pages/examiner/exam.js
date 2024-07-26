@@ -20,12 +20,12 @@ import QuestionBulkUpload from "@/components/QuestionBulkUpload";
 const table_column_heading = [
 
     {
-        key: "course_code",
-        heading: "Course Code",
+        key: "subject_code",
+        heading: "Subject Code",
     },
     {
-        key: "course_title",
-        heading: "Course Title",
+        key: "subject_name",
+        heading: "Subject Name",
     },
     {
         key: "number_of_questions",
@@ -43,10 +43,10 @@ const table_column_heading = [
         key: "total_mark",
         heading: "Total Mark",
     },
-    {
-        key: "start-btn",
-        heading: "",
-    },
+    // {
+    //     key: "start-btn",
+    //     heading: "",
+    // },
 
     {
         key: "edit-btn",
@@ -57,10 +57,10 @@ const table_column_heading = [
         key: "delete-btn",
         heading: "",
     },
-    {
-        key: "end-btn",
-        heading: "",
-    },
+    // {
+    //     key: "end-btn",
+    //     heading: "",
+    // },
 ];
 
 
@@ -350,38 +350,38 @@ function Exams() {
                     />
 
                 )}
-                categoryKey='course_code'
+                categoryKey='subject_code'
                 heading={table_column_heading}
                 data={Array.isArray(tableData) ? tableData.map((item) => ({
 
-                    course_code: item.course_code,
-                    course_title: item.course_name,
+                    subject_code: item.course_code,
+                    subject_name: item.course_name,
                     number_of_questions: item.questions.length,
                     duration: item.duration,
                     instruction: item.instruction,
                     total_mark: item.total_mark,
-                    "start-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="Start Exam"
-                                Icon={FaEdit}
-                                inverse={true}
-                                onClick={() => handleInitiationClick(item.id)} // Pass the examId to handleClick
-                                style={{ color: 'green', borderColor: 'green' }}
-                            />
-                        ),
-                    },
-                    "end-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="End Exam"
-                                Icon={FaEdit}
-                                inverse={true}
-                                onClick={() => handleEndExamClick(item.id)} // Pass the examId to handleClick
-                                style={{ color: 'green', borderColor: 'green' }}
-                            />
-                        ),
-                    },
+                    // "start-btn": {
+                    //     component: () => (
+                    //         <ActionButton
+                    //             label="Start Exam"
+                    //             Icon={FaEdit}
+                    //             inverse={true}
+                    //             onClick={() => handleInitiationClick(item.id)} // Pass the examId to handleClick
+                    //             style={{ color: 'green', borderColor: 'green' }}
+                    //         />
+                    //     ),
+                    // },
+                    // "end-btn": {
+                    //     component: () => (
+                    //         <ActionButton
+                    //             label="End Exam"
+                    //             Icon={FaEdit}
+                    //             inverse={true}
+                    //             onClick={() => handleEndExamClick(item.id)} // Pass the examId to handleClick
+                    //             style={{ color: 'green', borderColor: 'green' }}
+                    //         />
+                    //     ),
+                    // },
                     
                     "view-btn": {
                         component: () => (

@@ -6,17 +6,17 @@ import { API_BASE_URL } from '@/constants';
 
 const table_column_heading = [
     {
-        key: "course_code",
-        heading: "Course Code",
+        key: "subject_code",
+        heading: "Subject Code",
     },
     {
-        key: "course_title",
-        heading: "Course Title",
+        key: "subject_name",
+        heading: "Subject Name",
     },
 
     {
         key: "student",
-        heading: " Candidate Number",
+        heading: " Examination Number",
     },
     
     {
@@ -110,12 +110,12 @@ function Scores() {
                         style={{ margin: '0 19px', }}
                     />
                 )}
-                categoryKey='course_code'
+                categoryKey='subject_code'
                 heading={table_column_heading}
                 data={Array.isArray(tableData) ? tableData.map((item) => ({
 
-                    course_code: item.course_code,
-                    course_title: item.course_name,
+                    subject_code: item.course_code,
+                    subject_name: item.course_name,
                     student: item.student,
                     question: item.question,
                     student_answer: item.student_answer,

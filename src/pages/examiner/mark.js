@@ -23,12 +23,12 @@ import UploadScriptPerQuestion from "@/components/UploadScriptPerQuestion";
 const table_column_heading = [
 
     {
-        key: "course_code",
-        heading: "Course Code",
+        key: "subject_code",
+        heading: "Subject Code",
     },
     {
-        key: "course_title",
-        heading: "Course Title",
+        key: "subject_name",
+        heading: "Subject Name",
     },
     {
         key: "student",

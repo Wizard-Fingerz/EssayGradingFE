@@ -13,7 +13,7 @@ import { FiCheckCircle } from 'react-icons/fi';
 
 const sidebarItems = [
   {
-    name: "Courses",
+    name: "Subjects",
     href: "/examiner",
     icon: FaBook,
   },

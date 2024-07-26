@@ -1,3 +1,4 @@
+/* General Body Styles */
 .body {
     display: grid;
     place-items: center;
@@ -8,137 +9,142 @@
     background-size: cover;
 }
 
+/* Container for the Form */
 .container {
     color: #666666;
-    /* width: 50%; */
-    /* Set a default width for larger screens */
     background: white;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
     border-radius: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 
     @media screen and (max-width: 768px) {
         width: 90%;
-        /* Adjust for medium-sized screens */
     }
 
     @media screen and (max-width: 480px) {
         width: 95%;
-        /* Adjust for smaller screens */
         padding: 10px;
-        /* Adjust padding for smaller screens */
         border-radius: 10px;
-        /* Adjust border radius for smaller screens */
     }
 }
 
-.container h2 {
-    color: black;
-}
-
-.form {
+/* Header Section (Exam Info) */
+.header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.inputCont {
-    text-align: left;
-    margin: 5px;
-    width: 40%;
-}
-
-.inputCont label {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 30px;
-    letter-spacing: 0em;
-    text-align: left;
-
-
-    @media screen and (max-width: 480px) {
-        font-size: 16px;
-        /* Adjust label font size for smaller screens */
-    }
-}
-
-.input {
-    border-radius: 10px;
-    border: 1px solid #666666;
-    background: none;
-    /* Background is set to transparent */
-    color: #666666;
-    /* Text color is set to greyish */
-    padding: 10px;
-    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 20px;
     margin-bottom: 20px;
-    width: 30vw;
+    justify-content: center;
+}
 
+
+.textarea {
+    height: 150px; /* Default height */
+    width: 100%; /* Default width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: none;
+    color: black;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding and border are included in width and height */
+    resize: vertical; /* Allows vertical resizing only */
+  }
+  
+/* Input Container in Header */
+.inputCont {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Common Input Field Style */
+.input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: none;
+    color:black;
 
     @media screen and (max-width: 480px) {
         font-size: 14px;
-        /* Adjust input font size for smaller screens */
     }
 }
 
+/* Button Styles */
 .button {
     border-radius: 30px;
     background-color: #666666;
     border: 1px solid #666666;
-    padding: 10px;
-    margin: 0 65px;
-    width: 50%;
-    font-weight: 1900;
+    padding: 10px 20px;
+    margin: 10px;
+    width: auto;
+    font-size: 16px;
     color: white;
-    /* width: 100%;
-    font-size: 22px;
-    line-height: 33px;
-    letter-spacing: 0em; */
     text-align: center;
     cursor: pointer;
-
+    
     @media screen and (max-width: 480px) {
         font-size: 16px;
-        /* Adjust button font size for smaller screens */
     }
 }
 
+.button:hover {
+    background-color: #505050;
+}
+
+.button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+/* Questions Container (Scrollable) */
+.questionsContainer {
+    overflow-y: auto;
+    max-height: 500px;
+    margin-bottom: 20px;
+}
+
+/* Question and Sub-Question Styles */
+.questions {
+    display: flex;
+    flex-direction: column;
+}
+
+.question {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.subQuestion {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* Miscellaneous Styles */
 .boldedText {
     color: #000080;
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .imageContainer {
     width: 70%;
-    /* max-width: 400px; Set your desired maximum width */
-    /* margin-bottom: 20px; Adjust margin as needed */
+    max-width: 400px;
 
     @media screen and (max-width: 480px) {
         max-width: 300px;
-        /* Adjust maximum width for smaller screens */
-        margin-bottom: 10px;
-        /* Adjust margin for smaller screens */
     }
 }
 
 .timer {
     font-size: 20px;
     margin-bottom: 10px;
-}
-
-.question {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-.navigation button {
-    padding: 10px;
-    margin-right: 10px;
 }
 
 .questionHead {
@@ -176,13 +182,10 @@
 .left {
     margin: 20px;
     padding: 20px;
-    
 
     @media screen and (max-width: 480px) {
-
-        margin: 0px;
-        padding: 0px;
-
+        margin: 0;
+        padding: 0;
     }
 }
 
@@ -190,22 +193,18 @@
     border-left: 1px solid #1C1B64;
     margin: 20px;
     padding: 20px;
-  
+
     @media screen and (max-width: 480px) {
-      border-left: none;
-  
-      margin: 0px;
-      padding: 0px;
-  
+        border-left: none;
+        margin: 0;
+        padding: 0;
     }
-  }
-  
+}
 
 .rowedForm {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
 }
 
 .question {

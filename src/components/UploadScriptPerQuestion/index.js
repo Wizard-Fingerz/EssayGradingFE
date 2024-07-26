@@ -87,8 +87,15 @@ function UploadScriptPerQuestion() {
             if (response.ok) {
                 // Handle success
                 console.log("Upload successful");
+                alert('Student answer submitted sucessfully');
+                // setQuestions('');
+                // setStudents('');
+                setSelectedQuestion('');
+                setPdfFile('');
+                setSelectedStudent('');
             } else {
                 // Handle error
+                alert('Error Uploading Student Answer')
                 console.error('Error uploading file:', response.statusText);
             }
         } catch (error) {

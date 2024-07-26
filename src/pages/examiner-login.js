@@ -48,7 +48,7 @@ function LoginPage() {
             }
         } catch (error) {
             // Handle network or request error
-            alert('Registration Error, please try again')
+            alert('Login Error, please try again')
             console.error('Network error:', error);
         }
     };
