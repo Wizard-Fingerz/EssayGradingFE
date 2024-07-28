@@ -30,15 +30,42 @@ const table_column_heading = [
         key: "subject_name",
         heading: "Subject Name",
     },
+
     {
         key: "student",
-        heading: "Student",
+        heading: " Examination Number",
     },
     {
-        key: "answer_scripts",
-        heading: "Answer Script",
+        key: "question_number",
+        heading: "Question Number",
+        // icon: FaLongArrowAltDown,
+    },
+    {
+        key: "question",
+        heading: "Question",
+        // icon: FaLongArrowAltDown,
     },
 
+    {
+        key: "student_answer",
+        heading: " Student Answer",
+    },
+
+    
+    {
+        key: "similarity_score_percentage",
+        heading: "Plagarism Score",
+    },
+
+    {
+        key: "student_score",
+        heading: "Student Score",
+        // icon: FaLongArrowAltDown,
+    },
+    {
+        key: "question_score",
+        heading: "Question Score",
+    },
 
     {
         key: "view-btn",
@@ -63,7 +90,85 @@ function MarkExam() {
 
     const [uploadScriptModal, setUploadScriptModal] = useState(false);
     const [bulkUploadModal, setBulkUploadModal] = useState(false);
+    const [editModal, setEditModal] = useState(false);
+    const [viewModal, setViewModal] = useState(false);
+    const [editModalData, setEditModalData] = useState(null);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [deleteModalData, setDeleteModalData] = useState(null);
+
     const [singleScriptPerQuestionUploadModal, setSingleScriptPerQuestionUploadModalModal] = useState(false);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                console.error('Token not found in local storage');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/exam/examiner-exam-answers-score/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                    },
+                });
+                const data = await response.json();
+                console.log(data);
+                setTableData(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+    const openViewModal = (examId) => {
+        const selectedExam = tableData.find(item => item.id === examId);
+        setViewModalData(selectedExam);
+        setViewModal(true);
+    };
+
+    const closeViewModal = () => {
+        setViewModal(false);
+        window.location.reload();
+    };
+
+
+    const openEditModal = (questionId) => {
+        const selectedQuestion = tableData.find(item => item.id === questionId);
+        setEditModalData(selectedQuestion);
+        setEditModal(true);
+    };
+
+
+    const closeEditModal = () => {
+        setEditModal(false);
+        window.location.reload();
+    };
+
+
+    const openDeleteModal = (questionId) => {
+        const selectedCourse = tableData.find(item => item.id === questionId);
+        setDeleteModalData(selectedCourse);
+        setDeleteModal(true);
+    };
+
+    const closeDeleteModal = () => {
+        setDeleteModal(false);
+        // Reset the deleteModalData state when the modal is closed
+        setDeleteModalData(null);
+        // Refresh the page after closing the modal
+        window.location.reload();
+    };
+
+
 
     const openUploadScriptModal = () => {
         setUploadScriptModal(true);
@@ -129,38 +234,20 @@ function MarkExam() {
                     />
 
                 )}
-                categoryKey='course_code'
+                categoryKey='subject_code'
                 heading={table_column_heading}
                 data={Array.isArray(tableData) ? tableData.map((item) => ({
 
-                    course_code: item.course_code,
-                    course_title: item.course_name,
-                    number_of_questions: item.questions.length,
-                    duration: item.duration,
-                    instruction: item.instruction,
-                    total_mark: item.total_mark,
-                    "start-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="Start Exam"
-                                Icon={FaEdit}
-                                inverse={true}
-                                onClick={() => handleInitiationClick(item.id)} // Pass the examId to handleClick
-                                style={{ color: 'green', borderColor: 'green' }}
-                            />
-                        ),
-                    },
-                    "end-btn": {
-                        component: () => (
-                            <ActionButton
-                                label="End Exam"
-                                Icon={FaEdit}
-                                inverse={true}
-                                onClick={() => handleEndExamClick(item.id)} // Pass the examId to handleClick
-                                style={{ color: 'green', borderColor: 'green' }}
-                            />
-                        ),
-                    },
+                    subject_code: item.course_code,
+                    subject_name: item.course_name,
+                    student: item.student,
+                    question: item.question,
+                    question_number: item.question_number,
+                    student_answer: item.student_answer,
+                    similarity_score_percentage: item.similarity_score_percentage ? `${item.similarity_score_percentage}%` : '0%',
+                    student_score: item.student_score,
+                    question_score: item.question_score,
+                    
 
                     "view-btn": {
                         component: () => (

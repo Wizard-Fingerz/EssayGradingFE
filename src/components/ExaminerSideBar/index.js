@@ -39,12 +39,12 @@ const sidebarItems = [
     icon: FiCheckCircle ,
   },
   
-  {
-    name: "Scores",
-    href: "/examiner/scores",
-    icon: FaPoll ,
-  },
-
+  // {
+  //   name: "Scores",
+  //   href: "/examiner/scores",
+  //   icon: FaPoll ,
+  // },
+  
   {
     name: "Results",
     href: "/examiner/results",

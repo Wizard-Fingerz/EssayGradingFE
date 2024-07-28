@@ -29,15 +29,15 @@ const table_column_heading = [
     },
     {
         key: "number_of_questions",
-        heading: "Number of Questions",
+        heading: "Number of Parent Questions",
     },
     {
-        key: "duration",
-        heading: "Duration",
+        key: "exam_year",
+        heading: "Exam year",
     },
     {
-        key: "instruction",
-        heading: "Instruction",
+        key: "exam_type",
+        heading: "Exam Type",
     },
     {
         key: "total_mark",
@@ -357,8 +357,9 @@ function Exams() {
                     subject_code: item.course_code,
                     subject_name: item.course_name,
                     number_of_questions: item.questions.length,
-                    duration: item.duration,
-                    instruction: item.instruction,
+                    exam_type: item.exam_type,
+                    exam_year: item.exam_year,
+                    // instruction: item.instruction,
                     total_mark: item.total_mark,
                     // "start-btn": {
                     //     component: () => (
